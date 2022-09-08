@@ -41,6 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     CheckInternet();
+
     BlocProvider.of<PokedexBloc>(context).add(LoadingSucessPokemonEvent());
   }
 

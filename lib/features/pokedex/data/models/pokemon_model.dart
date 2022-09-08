@@ -5,11 +5,11 @@ class PokemonModel extends PokemonEntity {
       {required int id,
       required String name,
       required int height,
-      required List<Map> type,
-      required List<Map> abilities,
-      required List<Map> form,
-      required List<Map> atacks,
-      required List<Map> stats})
+      required List<dynamic> type,
+      required List<dynamic> abilities,
+      required List<dynamic> form,
+      required List<dynamic> atacks,
+      required List<dynamic> stats})
       : super(
             id: id,
             name: name,
@@ -25,10 +25,10 @@ class PokemonModel extends PokemonEntity {
         id: json['id'],
         name: json['name'],
         height: json['height'],
-        type: json['type'],
+        type: json['types'],
         abilities: json['abilities'],
-        form: json['form'],
-        atacks: json['atacks'],
+        form: json['forms'],
+        atacks: json['moves'],
         stats: json['stats']);
   }
 
@@ -50,7 +50,7 @@ class PokemonModel extends PokemonEntity {
     return 'PokemonModel{id: $id, name: $name, height: $height, type: $type, abilities: $abilities, form: $form, atacks: $atacks, stats: $stats}';
   }
 
-  @override
-  List<Object> get props =>
-      [id, name, height, type, abilities, form, atacks, stats];
+  // @override
+  // List<Object> get props =>
+  //     [id, name, height, type, abilities, form, atacks, stats];
 }

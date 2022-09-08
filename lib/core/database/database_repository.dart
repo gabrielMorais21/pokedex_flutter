@@ -1,4 +1,5 @@
 import 'package:pokedex_flutter/features/pokedex/data/models/pokemon_model.dart';
+import 'package:pokedex_flutter/features/pokedex/domain/entities/pokemon_entity.dart';
 import 'package:sqflite/sqflite.dart';
 
 abstract class DatabaseRepository {
@@ -59,11 +60,11 @@ class DatabaseRepositoryImp implements DatabaseRepository {
             id: pokemon[i]['id'] as int,
             name: pokemon[i]['name'] as String,
             height: pokemon[i]['height'] as int,
-            type: pokemon[i]['type'] as List<Map<dynamic, dynamic>>,
-            abilities: pokemon[i]['abilities'] as List<Map<dynamic, dynamic>>,
-            form: pokemon[i]['form'] as List<Map<dynamic, dynamic>>,
-            atacks: pokemon[i]['atacks'] as List<Map<dynamic, dynamic>>,
-            stats: pokemon[i]['stats'] as List<Map<dynamic, dynamic>>);
+            type: pokemon[i]['type'] as List<dynamic>,
+            abilities: pokemon[i]['abilities'] as List<dynamic>,
+            form: pokemon[i]['form'] as List<dynamic>,
+            atacks: pokemon[i]['atacks'] as List<dynamic>,
+            stats: pokemon[i]['stats'] as List<dynamic>);
       });
     } catch (error) {
       print(error);

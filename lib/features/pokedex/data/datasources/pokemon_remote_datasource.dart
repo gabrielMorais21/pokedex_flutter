@@ -21,16 +21,24 @@ class PokemonRemoteDataSourceImp implements PokemonRemoteDataSource {
 
   @override
   Future<List<PokemonModel>> getAllPokemon() async {
+    final uri =
+        Uri.parse('https://pokeapi.co/api/v2/pokemon/?offset=2&limit=10');
+
     try {
-      final response = await httpclient.get(
-        Uri.http(
-          '$API_URL_BASE/pokemon//?offset=2&limit=10',
-        ),
-      );
+      final response = await httpclient.get(uri, headers: API_HEADERS);
       if (response.statusCode == 200) {
-        List<PokemonModel> result = (jsonDecode(response.body) as List)
-            .map((i) => PokemonModel.fromJson(i))
-            .toList();
+        final map = jsonDecode(response.body);
+
+        // List<PokemonModel> result = (map["results"] as List)
+        //     .map((i) => PokemonModel.fromJson(i))
+        //     .toList();
+        List<PokemonModel> result = [];
+        var result3 = (map["results"] as List);
+        for (var i = 0; i < result3.length; i++) {
+          var test = await getPokemonByName(result3[i]["name"]);
+          result.add(test);
+        }
+
         return result;
       } else {
         throw ServerException(
@@ -44,10 +52,14 @@ class PokemonRemoteDataSourceImp implements PokemonRemoteDataSource {
   @override
   Future<PokemonModel> getPokemonByName(String name) async {
     try {
-      final response = await httpclient
-          .get(Uri.http('$API_URL_BASE/pokemon//?offset=2&limit=10'));
+      final response = await httpclient.get(
+          Uri.parse(
+            '$API_URL_BASE/pokemon/$name',
+          ),
+          headers: API_HEADERS);
       if (response.statusCode == 200) {
-        return PokemonModel.fromJson(jsonDecode(response.body));
+        var pok = PokemonModel.fromJson(jsonDecode(response.body));
+        return pok;
       } else {
         throw ServerException(
             "status code error" + response.statusCode.toString());

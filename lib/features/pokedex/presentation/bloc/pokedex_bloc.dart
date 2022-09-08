@@ -12,7 +12,20 @@ class PokedexBloc extends Bloc<PokedexEvent, PokedexState> {
   final GetPokemonByName getPokemonByName;
   PokedexBloc({required this.getAllPokemons, required this.getPokemonByName})
       : super(EmptyState()) {
-    on<LoadingSucessPokemonEvent>((event, emit) {});
+    on<LoadingSucessPokemonEvent>((event, emit) async {
+      // print('teste');
+      // var pokemons = await getPokemonByName("ditto");
+      // print(pokemons);
+      // var pk = await getAllPokemons();
+      // _mapPokemonsLoadedToState();
+      // var pokemons = await getAllPokemons();
+
+      // pokemons.fold(
+      //   (failure) => const ErrorState(message: "error loading pokemons"),
+      //   (pokemons) => LoadedSucessState(pokemons: pokemons),
+      // );
+      mapPokemonsLoadedToState();
+    });
   }
 
   @override
@@ -24,15 +37,15 @@ class PokedexBloc extends Bloc<PokedexEvent, PokedexState> {
   ) async* {
     LoadingState();
     // if (event is LoadedSucessState) {
-    yield* _mapPokemonsLoadedToState();
+    yield* mapPokemonsLoadedToState();
     // }
   }
 
-  Stream<PokedexState> _mapPokemonsLoadedToState() async* {
+  Stream<PokedexState> mapPokemonsLoadedToState() async* {
     try {
-      var pokemons = (await getAllPokemons());
+      var pokemons = await getAllPokemons();
 
-      yield pokemons.fold(
+      pokemons.fold(
         (failure) => const ErrorState(message: "error loading pokemons"),
         (pokemons) => LoadedSucessState(pokemons: pokemons),
       );

@@ -7,6 +7,7 @@ import 'package:pokedex_flutter/features/pokedex/data/models/pokemon_type_model.
 
 abstract class PokemonRemoteDataSource {
   Future<List<PokemonModel>> getAllPokemon();
+  Future<List<PokemonModel>> getAllPokemonByType({required String name});
   Future<PokemonModel> getPokemonByName(String name);
   Future<List<PokemonTypeModel>> getAllTypes();
 }
@@ -31,9 +32,6 @@ class PokemonRemoteDataSourceImp implements PokemonRemoteDataSource {
       if (response.statusCode == 200) {
         final map = jsonDecode(response.body);
 
-        // List<PokemonModel> result = (map["results"] as List)
-        //     .map((i) => PokemonModel.fromJson(i))
-        //     .toList();
         List<PokemonModel> result = [];
         var result3 = (map["results"] as List);
         for (var i = 0; i < result3.length; i++) {
@@ -83,6 +81,32 @@ class PokemonRemoteDataSourceImp implements PokemonRemoteDataSource {
         List<PokemonTypeModel> result = (map["results"] as List)
             .map((i) => PokemonTypeModel.fromJson(i))
             .toList();
+
+        return result;
+      } else {
+        throw ServerException(
+            "status code error" + response.statusCode.toString());
+      }
+    } catch (error) {
+      throw ServerException('failed to load pokemons' + error.toString());
+    }
+  }
+
+  @override
+  Future<List<PokemonModel>> getAllPokemonByType({required String name}) async {
+    final uri = Uri.parse('https://pokeapi.co/api/v2/type/$name');
+
+    try {
+      final response = await httpclient.get(uri, headers: API_HEADERS);
+      if (response.statusCode == 200) {
+        final map = jsonDecode(response.body);
+
+        List<PokemonModel> result = [];
+        var result3 = (map["pokemon"] as List);
+        for (var i = 0; i < result3.length; i++) {
+          var test = await getPokemonByName(result3[i]["pokemon"]["name"]);
+          result.add(test);
+        }
 
         return result;
       } else {

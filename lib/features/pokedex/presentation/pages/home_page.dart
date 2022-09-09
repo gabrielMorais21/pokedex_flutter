@@ -7,6 +7,7 @@ import 'package:pokedex_flutter/features/pokedex/presentation/bloc/pokedex/poked
 import 'package:pokedex_flutter/features/pokedex/presentation/bloc/pokedex_categories/pokedex_categories_bloc.dart';
 import 'package:pokedex_flutter/features/pokedex/presentation/bloc/pokedex_categories/pokedex_categories_state.dart';
 import 'package:pokedex_flutter/features/pokedex/presentation/widgets/categories.dart';
+import 'package:pokedex_flutter/features/pokedex/presentation/widgets/pokemon_item.dart';
 import '../../../../injection_container.dart' as di;
 
 class HomePage extends StatefulWidget {
@@ -26,68 +27,29 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Pokedex")),
-      body: Column(
-        children: [
-          BlocBuilder<PokedexCategoriesBloc, PokedexCategoriesState>(
-              bloc: BlocProvider.of<PokedexCategoriesBloc>(context),
-              builder: (context, state) {
-                if (state is PokedexCategoriesLoadedState)
-                  // return Text(state.list[0].name);
-                  return Categories(list: state.list);
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            BlocBuilder<PokedexCategoriesBloc, PokedexCategoriesState>(
+                bloc: BlocProvider.of<PokedexCategoriesBloc>(context),
+                builder: (context, state) {
+                  if (state is PokedexCategoriesLoadedState) {
+                    return Categories(list: state.list);
+                  }
 
-                return Center(child: CircularProgressIndicator());
-              }),
-          BlocBuilder<PokedexBloc, PokedexState>(
-              bloc: BlocProvider.of<PokedexBloc>(context),
-              builder: (context, state) {
-                if (state is PokedexLoadedState)
-                  // for(var i = 0; i < state.list.length, i++)
-                  return Container(
-                    color: ConstsApp.getColorType(
-                            type: state.list[0].type[0]['type']['name'])
-                        ?.withOpacity(0.7),
-                    child: SvgPicture.network(
-                        state.list[0].sprites["other"]["dream_world"]
-                            ["front_default"],
-                        height: 100.0,
-                        width: 100.0,
-                        allowDrawingOutsideViewBox: true),
-                  );
+                  return Center(child: CircularProgressIndicator());
+                }),
+            BlocBuilder<PokedexBloc, PokedexState>(
+                bloc: BlocProvider.of<PokedexBloc>(context),
+                builder: (context, state) {
+                  if (state is PokedexLoadedState) {
+                    return PokemonItem(list: state.list);
+                  }
 
-                // return GridView.count(
-                //     crossAxisCount: 2,
-                //     children: List.generate(state.list.length, (index) {
-                //       return Center(
-                //         child: Column(
-                //           children: [
-                //             Container(
-                //               color: ConstsApp.getColorType(
-                //                       type: state.list[index].type[0]['type']
-                //                           ['name'])
-                //                   ?.withOpacity(0.7),
-                //               child: SvgPicture.network(
-                //                   state.list[index].sprites["other"]
-                //                       ["dream_world"]["front_default"],
-                //                   height: 100.0,
-                //                   width: 100.0,
-                //                   allowDrawingOutsideViewBox: true),
-                //             ),
-                //             FloatingActionButton(
-                //               child: const Icon(Icons.remove),
-                //               onPressed: () {
-                //                 context
-                //                     .read<PokedexBloc>()
-                //                     .add(PokedexTypesFetchList());
-                //               },
-                //             ),
-                //           ],
-                //         ),
-                //       );
-                //     }));
-
-                return Center(child: CircularProgressIndicator());
-              }),
-        ],
+                  return const Center(child: CircularProgressIndicator());
+                }),
+          ],
+        ),
       ),
     );
   }

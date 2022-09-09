@@ -24,7 +24,7 @@ class PokemonRemoteDataSourceImp implements PokemonRemoteDataSource {
   @override
   Future<List<PokemonModel>> getAllPokemon() async {
     final uri =
-        Uri.parse('https://pokeapi.co/api/v2/pokemon/?offset=2&limit=10');
+        Uri.parse('https://pokeapi.co/api/v2/pokemon/?offset=2&limit=20');
 
     try {
       final response = await httpclient.get(uri, headers: API_HEADERS);

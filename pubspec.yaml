@@ -29,7 +29,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_bloc: 7.0.0
+  flutter_bloc: ^7.0.0
   equatable:
   http: ^0.13.5
   dartz: ^0.8.6
@@ -37,6 +37,7 @@ dependencies:
   get_it:
   sqflite: ^2.0.3+1
   flutter_svg: ^1.1.4
+  badges: ^2.0.3
 
 
   # The following adds the Cupertino Icons font to your application.

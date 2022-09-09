@@ -3,10 +3,12 @@ import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:pokedex_flutter/core/error/exception.dart';
 import 'package:pokedex_flutter/features/pokedex/data/models/pokemon_model.dart';
+import 'package:pokedex_flutter/features/pokedex/data/models/pokemon_type_model.dart';
 
 abstract class PokemonRemoteDataSource {
   Future<List<PokemonModel>> getAllPokemon();
   Future<PokemonModel> getPokemonByName(String name);
+  Future<List<PokemonTypeModel>> getAllTypes();
 }
 
 const String API_URL_BASE = 'https://pokeapi.co/api/v2';
@@ -66,6 +68,29 @@ class PokemonRemoteDataSourceImp implements PokemonRemoteDataSource {
       }
     } catch (error) {
       throw ServerException('failed to load pokemon' + error.toString());
+    }
+  }
+
+  @override
+  Future<List<PokemonTypeModel>> getAllTypes() async {
+    final uri = Uri.parse('https://pokeapi.co/api/v2/type/');
+
+    try {
+      final response = await httpclient.get(uri, headers: API_HEADERS);
+      if (response.statusCode == 200) {
+        final map = jsonDecode(response.body);
+
+        List<PokemonTypeModel> result = (map["results"] as List)
+            .map((i) => PokemonTypeModel.fromJson(i))
+            .toList();
+
+        return result;
+      } else {
+        throw ServerException(
+            "status code error" + response.statusCode.toString());
+      }
+    } catch (error) {
+      throw ServerException('failed to load pokemons' + error.toString());
     }
   }
 }

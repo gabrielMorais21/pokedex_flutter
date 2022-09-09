@@ -9,6 +9,7 @@ import 'package:pokedex_flutter/features/pokedex/data/datasources/pokemon_remote
 import 'package:pokedex_flutter/features/pokedex/data/repositories/pokemon_repository_imp.dart';
 import 'package:pokedex_flutter/features/pokedex/domain/repositories/pokemon_repository.dart';
 import 'package:pokedex_flutter/features/pokedex/domain/usecases/get_all_pokemon/get_all_pokemon.dart';
+import 'package:pokedex_flutter/features/pokedex/domain/usecases/get_all_types/get_all_types.dart';
 import 'package:pokedex_flutter/features/pokedex/domain/usecases/get_pokemon_by_name/get_pokemon_by_name.dart';
 import 'package:pokedex_flutter/features/pokedex/presentation/bloc/pokedex_bloc.dart';
 
@@ -18,11 +19,13 @@ Future<void> init() async {
   // bloc
   sl.registerFactory(() => PokedexBloc(
       getAllPokemons: GetAllPokemons(repository: sl()),
-      getPokemonByName: GetPokemonByName(repository: sl())));
+      getPokemonByName: GetPokemonByName(repository: sl()),
+      getAllTypes: GetAllTypes(repository: sl())));
 
   // use cases
   sl.registerLazySingleton(() => GetAllPokemons(repository: sl()));
   sl.registerLazySingleton(() => GetPokemonByName(repository: sl()));
+  sl.registerLazySingleton(() => GetAllTypes(repository: sl()));
 
   // repository
 

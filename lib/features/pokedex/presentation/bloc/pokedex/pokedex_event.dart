@@ -13,4 +13,12 @@ class PokedexFetchListWithError extends PokedexEvent {}
 
 class PokedexFetchListEmptyList extends PokedexEvent {}
 
+// types
+
+class PokedexTypesFetchList extends PokedexEvent {}
+
+class PokedexFetchTypesListWithError extends PokedexEvent {}
+
+class PokedexFetchTypesListEmptyList extends PokedexEvent {}
+
 class NetworkErrorEvent extends Error {}

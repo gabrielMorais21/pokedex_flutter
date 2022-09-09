@@ -9,6 +9,8 @@ class PokedexState extends Equatable {
 
 class PokedexLoadingState extends PokedexState {}
 
+class PokemonTypeLoadingState extends PokedexState {}
+
 class PokedexErrorState extends PokedexState {
   final String message;
 
@@ -22,3 +24,11 @@ class PokedexLoadedState extends PokedexState {
 }
 
 class PokedexEmptyList extends PokedexState {}
+
+class PokedexTypeLoadedState extends PokedexState {
+  final List<PokemonTypeEntity> list;
+
+  const PokedexTypeLoadedState({required this.list});
+}
+
+class PokedexTypeEmptyList extends PokedexState {}

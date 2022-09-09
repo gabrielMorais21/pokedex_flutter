@@ -3,10 +3,23 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/parser.dart';
 import 'package:pokedex_flutter/consts/consts_app.dart';
-import 'package:pokedex_flutter/features/pokedex/presentation/bloc/pokedex_bloc.dart';
+import 'package:pokedex_flutter/features/pokedex/presentation/bloc/pokedex/pokedex_bloc.dart';
+import '../../../../injection_container.dart' as di;
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    // di.sl<PokedexBloc>()..add(PokedexTypesFetchList());
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,62 +32,46 @@ class HomePage extends StatelessWidget {
                   crossAxisCount: 2,
                   children: List.generate(state.list.length, (index) {
                     return Center(
-                      child: Container(
-                        color: ConstsApp.getColorType(
-                                type: state.list[index].type[0]['type']['name'])
-                            ?.withOpacity(0.7),
-                        // child: Image.network(state.list[index].sprites["other"]
-                        //     ["home"]["front_default"]),
-                        child: SvgPicture.network(
-                            state.list[index].sprites["other"]["dream_world"]
-                                ["front_default"],
-
-                            // "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/132.svg",
-                            height: 100.0,
-                            width: 100.0,
-                            allowDrawingOutsideViewBox: true),
+                      child: Column(
+                        children: [
+                          Container(
+                            color: ConstsApp.getColorType(
+                                    type: state.list[index].type[0]['type']
+                                        ['name'])
+                                ?.withOpacity(0.7),
+                            child: SvgPicture.network(
+                                state.list[index].sprites["other"]
+                                    ["dream_world"]["front_default"],
+                                height: 100.0,
+                                width: 100.0,
+                                allowDrawingOutsideViewBox: true),
+                          ),
+                          FloatingActionButton(
+                            child: const Icon(Icons.remove),
+                            onPressed: () {
+                              context
+                                  .read<PokedexBloc>()
+                                  .add(PokedexTypesFetchList());
+                            },
+                          ),
+                        ],
                       ),
-                      // child: Text(
-                      //   'Item $index',
-                      //   style: Theme.of(context).textTheme.headline5,
-                      // ),
                     );
                   }));
 
-            // return ListView.builder(
-            //   itemCount: state.list.length,
-            //   itemBuilder: (context, index) {
-            // state.list[index].sprites["other"]
-            //           ["dream_world"]["front_default"] ??
-            // return ListTile(
-            //   leading: Image.network(
-            //       state.list[index].sprites["front_default"]),
-            //   // leading: Image.network(
-            //   //     state.list[index].sprites["back_default"]),
-            //   // leading:
-            //   //     Image.network(state.list[index].sprites["back_shiny"]),
-            //   title: Text(
-            //     state.list[index].name,
-            //   ),
-            // );
-            //     return GridView.count(
-            //         crossAxisCount: 2,
-            //         children: List.generate(100, (index) {
-            //           return Center(
-            //             child: Image.network(
-            //                 state.list[index].sprites["front_default"]),
-            //             // child: Text(
-            //             //   'Item $index',
-            //             //   style: Theme.of(context).textTheme.headline5,
-            //             // ),
-            //           );
-            //         }));
-            //   },
-            // );
-            // );
+            if (state is PokedexTypeLoadedState)
+              return Text(state.list[0].name);
 
             return Center(child: CircularProgressIndicator());
           }),
+      // BlocBuilder<PokedexBloc, PokedexState>(
+      //     bloc: BlocProvider.of<PokedexBloc>(context),
+      //     builder: (context, state) {
+      //       if (state is PokedexTypeLoadedState)
+      //         return Text(state.list[0].name);
+
+      //       return Center(child: CircularProgressIndicator());
+      //     }),
     );
   }
 }

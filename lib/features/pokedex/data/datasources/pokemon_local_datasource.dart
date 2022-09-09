@@ -16,14 +16,17 @@ class PokemonLocalDataSourceImp implements PokemonLocalDataSource {
     print("call cache");
     List<PokemonModel> pokemonsAdd = [];
     List<PokemonModel> pokemonsUpdate = [];
+    print("pokemonsToCache");
 
     pokemonsToCache.forEach((element) async {
-      await databaseRepository.findById(element.id).then((pokemon) => {
-            if (pokemon != null)
-              {pokemonsUpdate.add(pokemon)}
-            else
-              {pokemonsAdd.add(element)}
-          });
+      await databaseRepository
+          .findByName(name: element.name)
+          .then((pokemon) => {
+                if (pokemon != null)
+                  {pokemonsUpdate.add(pokemon)}
+                else
+                  {pokemonsAdd.add(element)}
+              });
     });
 
     await databaseRepository.update(pokemonsUpdate);
@@ -33,6 +36,6 @@ class PokemonLocalDataSourceImp implements PokemonLocalDataSource {
   @override
   Future<List<PokemonModel>> getLastPokemons() async {
     var pokemons = await databaseRepository.getAll();
-    return pokemons;
+    return pokemons ?? [];
   }
 }

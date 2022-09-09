@@ -5,6 +5,7 @@ class PokemonModel extends PokemonEntity {
       {required int id,
       required String name,
       required int height,
+      required Map sprites,
       required List<dynamic> type,
       required List<dynamic> abilities,
       required List<dynamic> form,
@@ -14,6 +15,7 @@ class PokemonModel extends PokemonEntity {
             id: id,
             name: name,
             height: height,
+            sprites: sprites,
             type: type,
             abilities: abilities,
             form: form,
@@ -22,35 +24,36 @@ class PokemonModel extends PokemonEntity {
 
   factory PokemonModel.fromJson(Map<String, dynamic> json) {
     return PokemonModel(
-        id: json['id'],
-        name: json['name'],
-        height: json['height'],
-        type: json['types'],
-        abilities: json['abilities'],
-        form: json['forms'],
-        atacks: json['moves'],
-        stats: json['stats']);
+      id: json['id'],
+      name: json['name'],
+      height: json['height'],
+      sprites: json['sprites'],
+      type: json['types'],
+      abilities: json['abilities'],
+      form: json['forms'],
+      atacks: json['moves'],
+      stats: json['stats'],
+    );
   }
 
   Map<String, dynamic> toJson() {
-    return {
+    var m = {
       'id': id,
       'name': name,
       'height': height,
-      'type': type,
-      'abilities': abilities,
-      'form': form,
-      'atacks': atacks,
-      'stats': stats
+      'sprites': sprites.toString(),
+      'type': type.toString(),
+      'abilities': abilities.toString(),
+      'form': form.toString(),
+      'atacks': atacks.toString(),
+      'stats': stats.toString()
     };
+    // print(m);
+    return m;
   }
 
   @override
   String toString() {
-    return 'PokemonModel{id: $id, name: $name, height: $height, type: $type, abilities: $abilities, form: $form, atacks: $atacks, stats: $stats}';
+    return 'PokemonModel{id: $id, name: $name, height: $height, type: $type, abilities: $abilities, form: $form, atacks: $atacks, stats: $stats, sprites: $sprites}';
   }
-
-  // @override
-  // List<Object> get props =>
-  //     [id, name, height, type, abilities, form, atacks, stats];
 }

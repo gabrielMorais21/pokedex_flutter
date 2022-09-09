@@ -3,10 +3,10 @@ import 'package:pokedex_flutter/features/pokedex/domain/entities/pokemon_entity.
 import 'package:sqflite/sqflite.dart';
 
 abstract class DatabaseRepository {
-  Future<List<PokemonModel>> getAll();
+  Future<List<PokemonModel>?> getAll();
   insert(List<PokemonModel> rows);
   update(List<PokemonModel> rows);
-  Future<PokemonModel> findById(id);
+  Future<PokemonModel?> findByName({required String name});
 }
 
 class DatabaseRepositoryImp implements DatabaseRepository {
@@ -15,7 +15,8 @@ class DatabaseRepositoryImp implements DatabaseRepository {
   DatabaseRepositoryImp({required this.database});
 
   @override
-  Future<PokemonModel> findById(id) async {
+  Future<PokemonModel?> findByName({required String name}) async {
+    print(name);
     final Database db = await database;
 
     try {
@@ -30,27 +31,19 @@ class DatabaseRepositoryImp implements DatabaseRepository {
             "atacks",
             "stats"
           ],
-          where: 'id = ?',
-          whereArgs: [id]);
+          where: 'name = ?',
+          whereArgs: [name]);
       if (maps.isNotEmpty) {
         return PokemonModel.fromJson(maps.first);
       }
     } catch (error) {
       print(error);
     }
-    return PokemonModel(
-        id: id,
-        name: 'name',
-        height: 2,
-        type: const [],
-        abilities: const [],
-        form: const [],
-        atacks: const [],
-        stats: const []);
+    return null;
   }
 
   @override
-  Future<List<PokemonModel>> getAll() async {
+  Future<List<PokemonModel>?> getAll() async {
     final Database db = await database;
     try {
       final pokemon = await db.query(_table);
@@ -60,6 +53,7 @@ class DatabaseRepositoryImp implements DatabaseRepository {
             id: pokemon[i]['id'] as int,
             name: pokemon[i]['name'] as String,
             height: pokemon[i]['height'] as int,
+            sprites: pokemon[i]['sprites'] as Map,
             type: pokemon[i]['type'] as List<dynamic>,
             abilities: pokemon[i]['abilities'] as List<dynamic>,
             form: pokemon[i]['form'] as List<dynamic>,
@@ -69,7 +63,7 @@ class DatabaseRepositoryImp implements DatabaseRepository {
     } catch (error) {
       print(error);
     }
-    return [];
+    return null;
   }
 
   @override
@@ -94,8 +88,8 @@ class DatabaseRepositoryImp implements DatabaseRepository {
 
     try {
       rows.forEach((row) async {
-        batch
-            .update(_table, row.toJson(), where: 'id = ?', whereArgs: [row.id]);
+        batch.update(_table, row.toJson(),
+            where: 'name = ?', whereArgs: [row.name]);
       });
       await batch.commit(noResult: true);
     } catch (error) {

@@ -25,7 +25,7 @@ class PokemonRepositoryImpl implements PokemonRepository {
       try {
         final List<PokemonModel> pokemons =
             await pokemonRemoteDataSource.getAllPokemon();
-        // pokemonLocalDataSource.cachePokemons(pokemons);
+        pokemonLocalDataSource.cachePokemons(pokemons);
         return Right(pokemons);
       } on ServerException {
         return Left(ServerFailure());

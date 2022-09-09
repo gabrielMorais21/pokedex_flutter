@@ -4,18 +4,18 @@ import 'package:pokedex_flutter/features/pokedex/domain/entities/pokemon_entity.
 import 'package:pokedex_flutter/features/pokedex/domain/entities/pokemon_type_entity.dart';
 import 'package:pokedex_flutter/features/pokedex/domain/usecases/get_all_pokemon/get_all_pokemon.dart';
 import 'package:pokedex_flutter/features/pokedex/domain/usecases/get_all_pokemon_by_type/get_all_pokemon_by_type.dart';
-import 'package:pokedex_flutter/features/pokedex/domain/usecases/get_all_types/get_all_types.dart';
 import 'package:pokedex_flutter/features/pokedex/domain/usecases/get_pokemon_by_name/get_pokemon_by_name.dart';
 
 part 'pokedex_event.dart';
 part 'pokedex_state.dart';
 
-class Increment extends PokedexEvent {}
-
 class PokedexBloc extends Bloc<PokedexEvent, PokedexState> {
   final GetAllPokemons getAllPokemons;
   final GetPokemonByName getPokemonByName;
   final GetAllPokemonByType getAllPokemonsByType;
+  int offset = 1;
+  List<PokemonEntity> listPokemon = [];
+
   PokedexBloc(
       {required this.getAllPokemons,
       required this.getPokemonByName,
@@ -29,15 +29,24 @@ class PokedexBloc extends Bloc<PokedexEvent, PokedexState> {
     PokedexEvent event,
     Emitter<PokedexState> emit,
   ) async {
-    var pokemons = (await getAllPokemons());
+    print(listPokemon);
+    print(offset);
+    var pokemons = (await getAllPokemons(offset: offset));
 
     return pokemons.fold(
         (failure) => emit(const PokedexErrorState(
               message: "error loading pokemons",
             )),
-        (pokemons) => emit(PokedexLoadedState(
-              list: pokemons,
-            )));
+        (pokemons) => {
+              listPokemon.addAll(pokemons),
+              emit(PokedexLoadingState()),
+              emit(
+                PokedexLoadedState(
+                  list: listPokemon,
+                ),
+              ),
+              offset = offset + 20
+            });
   }
 
   Future<void> _fetchListByType(

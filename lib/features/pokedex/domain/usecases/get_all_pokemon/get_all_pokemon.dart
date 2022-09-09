@@ -8,7 +8,8 @@ class GetAllPokemons {
 
   GetAllPokemons({required this.repository});
 
-  Future<Either<Failure, List<PokemonEntity>>> call() async {
-    return await repository.getAllPokemons();
+  Future<Either<Failure, List<PokemonEntity>>> call(
+      {required int offset}) async {
+    return await repository.getAllPokemons(offset: offset);
   }
 }

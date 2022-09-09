@@ -22,11 +22,12 @@ class PokemonRepositoryImpl implements PokemonRepository {
   });
 
   @override
-  Future<Either<Failure, List<PokemonEntity>>> getAllPokemons() async {
+  Future<Either<Failure, List<PokemonEntity>>> getAllPokemons(
+      {required int offset}) async {
     if (await networkInfo.isConnected) {
       try {
         final List<PokemonModel> pokemons =
-            await pokemonRemoteDataSource.getAllPokemon();
+            await pokemonRemoteDataSource.getAllPokemon(offset: offset);
         pokemonLocalDataSource.cachePokemons(pokemons);
         return Right(pokemons);
       } on ServerException {

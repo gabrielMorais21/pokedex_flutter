@@ -6,7 +6,9 @@ import 'package:pokedex_flutter/features/pokedex/data/models/pokemon_model.dart'
 import 'package:pokedex_flutter/features/pokedex/data/models/pokemon_type_model.dart';
 
 abstract class PokemonRemoteDataSource {
-  Future<List<PokemonModel>> getAllPokemon();
+  Future<List<PokemonModel>> getAllPokemon({
+    required int offset,
+  });
   Future<List<PokemonModel>> getAllPokemonByType({required String name});
   Future<PokemonModel> getPokemonByName(String name);
   Future<List<PokemonTypeModel>> getAllTypes();
@@ -23,9 +25,11 @@ class PokemonRemoteDataSourceImp implements PokemonRemoteDataSource {
   PokemonRemoteDataSourceImp({required this.httpclient});
 
   @override
-  Future<List<PokemonModel>> getAllPokemon() async {
+  Future<List<PokemonModel>> getAllPokemon({
+    required int offset,
+  }) async {
     final uri =
-        Uri.parse('https://pokeapi.co/api/v2/pokemon/?offset=2&limit=20');
+        Uri.parse('https://pokeapi.co/api/v2/pokemon/?offset=$offset&limit=20');
 
     try {
       final response = await httpclient.get(uri, headers: API_HEADERS);

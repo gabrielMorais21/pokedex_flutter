@@ -57,6 +57,9 @@ class _HomePageState extends State<HomePage> {
             if (state is PokedexLoadedState) {
               return PokemonItem(
                 list: state.list,
+                onEndOfPage: () {
+                  context.read<PokedexBloc>().add(PokedexFetchList());
+                },
               );
             }
 

@@ -4,7 +4,8 @@ import 'package:pokedex_flutter/features/pokedex/domain/entities/pokemon_entity.
 import 'package:pokedex_flutter/features/pokedex/domain/entities/pokemon_type_entity.dart';
 
 abstract class PokemonRepository {
-  Future<Either<Failure, List<PokemonEntity>>> getAllPokemons();
+  Future<Either<Failure, List<PokemonEntity>>> getAllPokemons(
+      {required int offset});
   Future<Either<Failure, PokemonEntity>> getPokemonByName(
       {required String name});
   Future<Either<Failure, List<PokemonEntity>>> getAllPokemonsByType(

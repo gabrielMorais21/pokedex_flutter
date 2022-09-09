@@ -35,7 +35,15 @@ class _HomePageState extends State<HomePage> {
                 bloc: BlocProvider.of<PokedexCategoriesBloc>(context),
                 builder: (context, state) {
                   if (state is PokedexCategoriesLoadedState) {
-                    return Categories(list: state.list);
+                    return Categories(
+                      list: state.list,
+                      onTap: (String name) {
+                        print(name);
+                        context
+                            .read<PokedexBloc>()
+                            .add(PokedexFetchListByType(name: name));
+                      },
+                    );
                   }
 
                   return Center(child: CircularProgressIndicator());
@@ -50,44 +58,6 @@ class _HomePageState extends State<HomePage> {
               return PokemonItem(
                 list: state.list,
               );
-              // return Row(
-              //   children: [
-              //     Container(
-              //       width: 50,
-              //       height: 300,
-              //       color: Colors.red,
-              //       child: const Center(
-              //         child: Text('50'),
-              //       ),
-              //     ),
-              //     Container(
-              //       width: 80,
-              //       height: 300,
-              //       color: Colors.orange,
-              //       child: const Center(
-              //         child: Text('80'),
-              //       ),
-              //     ),
-              //     Container(
-              //       width: 60,
-              //       height: 300,
-              //       color: Colors.pink,
-              //       child: const Center(
-              //         child: Text('60'),
-              //       ),
-              //     ),
-              //     // this will take all the remaning space
-              //     Flexible(
-              //       child: Container(
-              //         height: 300,
-              //         color: Colors.amber,
-              //         child: const Center(
-              //           child: Text('Fill'),
-              //         ),
-              //       ),
-              //     ),
-              //   ],
-              // );
             }
 
             return const Center(child: CircularProgressIndicator());

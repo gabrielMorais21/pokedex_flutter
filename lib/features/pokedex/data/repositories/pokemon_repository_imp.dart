@@ -70,4 +70,26 @@ class PokemonRepositoryImpl implements PokemonRepository {
       }
     }
   }
+
+  @override
+  Future<Either<Failure, List<PokemonEntity>>> getAllPokemonsByType(
+      {required String name}) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final List<PokemonModel> pokemons =
+            await pokemonRemoteDataSource.getAllPokemonByType(name: name);
+        // pokemonLocalDataSource.cachePokemons(pokemons);
+        return Right(pokemons);
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
+      try {
+        final localPokemons = await pokemonLocalDataSource.getLastPokemons();
+        return Right(localPokemons);
+      } on CacheException {
+        return Left(CacheFailure());
+      }
+    }
+  }
 }

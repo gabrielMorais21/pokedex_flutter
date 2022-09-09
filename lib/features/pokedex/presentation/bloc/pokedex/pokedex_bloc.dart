@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedex_flutter/features/pokedex/domain/entities/pokemon_entity.dart';
 import 'package:pokedex_flutter/features/pokedex/domain/entities/pokemon_type_entity.dart';
 import 'package:pokedex_flutter/features/pokedex/domain/usecases/get_all_pokemon/get_all_pokemon.dart';
+import 'package:pokedex_flutter/features/pokedex/domain/usecases/get_all_pokemon_by_type/get_all_pokemon_by_type.dart';
 import 'package:pokedex_flutter/features/pokedex/domain/usecases/get_all_types/get_all_types.dart';
 import 'package:pokedex_flutter/features/pokedex/domain/usecases/get_pokemon_by_name/get_pokemon_by_name.dart';
 
@@ -14,14 +15,14 @@ class Increment extends PokedexEvent {}
 class PokedexBloc extends Bloc<PokedexEvent, PokedexState> {
   final GetAllPokemons getAllPokemons;
   final GetPokemonByName getPokemonByName;
-  final GetAllTypes getAllTypes;
-  PokedexBloc({
-    required this.getAllPokemons,
-    required this.getPokemonByName,
-    required this.getAllTypes,
-  }) : super(PokedexLoadingState()) {
+  final GetAllPokemonByType getAllPokemonsByType;
+  PokedexBloc(
+      {required this.getAllPokemons,
+      required this.getPokemonByName,
+      required this.getAllPokemonsByType})
+      : super(PokedexLoadingState()) {
     on<PokedexFetchList>(_fetchList);
-    on<PokedexTypesFetchList>(_fetchTypeList);
+    on<PokedexFetchListByType>(_fetchListByType);
   }
 
   Future<void> _fetchList(
@@ -39,17 +40,19 @@ class PokedexBloc extends Bloc<PokedexEvent, PokedexState> {
             )));
   }
 
-  Future<void> _fetchTypeList(
-    PokedexEvent event,
+  Future<void> _fetchListByType(
+    PokedexFetchListByType event,
     Emitter<PokedexState> emit,
   ) async {
-    var type = (await getAllTypes());
-    return type.fold(
+    emit(PokedexLoadingState());
+    var pokemons = (await getAllPokemonsByType(event.name));
+    print(pokemons);
+    return pokemons.fold(
         (failure) => emit(const PokedexErrorState(
-              message: "error loading types",
+              message: "error loading pokemons",
             )),
-        (types) => emit(PokedexTypeLoadedState(
-              list: types,
+        (pokemons) => emit(PokedexLoadedState(
+              list: pokemons,
             )));
   }
 }

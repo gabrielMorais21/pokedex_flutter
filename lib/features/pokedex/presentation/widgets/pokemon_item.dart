@@ -17,19 +17,21 @@ class PokemonItem extends StatelessWidget {
         shrinkWrap: true,
         itemCount: list.length,
         itemBuilder: (context, index) {
-          return ListTile(
-              title: Text(list[index].name),
-              leading: Container(
-                color: ConstsApp.getColorType(
-                        type: list[index].type[0]['type']['name'])
-                    ?.withOpacity(0.7),
-                child: SvgPicture.network(
-                    list[index].sprites["other"]["dream_world"]
-                        ["front_default"],
-                    height: 100.0,
-                    width: 100.0,
-                    allowDrawingOutsideViewBox: true),
-              ));
+          return Card(
+            child: ListTile(
+                title: Text(list[index].name),
+                leading: Container(
+                  color: ConstsApp.getColorType(
+                          type: list[index].type[0]['type']['name'])
+                      ?.withOpacity(0.7),
+                  child: SvgPicture.network(
+                      list[index].sprites["other"]["dream_world"]
+                          ["front_default"],
+                      height: 100.0,
+                      width: 100.0,
+                      allowDrawingOutsideViewBox: true),
+                )),
+          );
         });
   }
 }

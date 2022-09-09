@@ -26,10 +26,11 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Pokedex")),
-      body: SingleChildScrollView(
-        child: Column(
+      appBar: AppBar(
+        toolbarHeight: 120,
+        title: Column(
           children: [
+            Text("Pokedex"),
             BlocBuilder<PokedexCategoriesBloc, PokedexCategoriesState>(
                 bloc: BlocProvider.of<PokedexCategoriesBloc>(context),
                 builder: (context, state) {
@@ -39,18 +40,58 @@ class _HomePageState extends State<HomePage> {
 
                   return Center(child: CircularProgressIndicator());
                 }),
-            BlocBuilder<PokedexBloc, PokedexState>(
-                bloc: BlocProvider.of<PokedexBloc>(context),
-                builder: (context, state) {
-                  if (state is PokedexLoadedState) {
-                    return PokemonItem(list: state.list);
-                  }
-
-                  return const Center(child: CircularProgressIndicator());
-                }),
           ],
         ),
       ),
+      body: BlocBuilder<PokedexBloc, PokedexState>(
+          bloc: BlocProvider.of<PokedexBloc>(context),
+          builder: (context, state) {
+            if (state is PokedexLoadedState) {
+              return PokemonItem(
+                list: state.list,
+              );
+              // return Row(
+              //   children: [
+              //     Container(
+              //       width: 50,
+              //       height: 300,
+              //       color: Colors.red,
+              //       child: const Center(
+              //         child: Text('50'),
+              //       ),
+              //     ),
+              //     Container(
+              //       width: 80,
+              //       height: 300,
+              //       color: Colors.orange,
+              //       child: const Center(
+              //         child: Text('80'),
+              //       ),
+              //     ),
+              //     Container(
+              //       width: 60,
+              //       height: 300,
+              //       color: Colors.pink,
+              //       child: const Center(
+              //         child: Text('60'),
+              //       ),
+              //     ),
+              //     // this will take all the remaning space
+              //     Flexible(
+              //       child: Container(
+              //         height: 300,
+              //         color: Colors.amber,
+              //         child: const Center(
+              //           child: Text('Fill'),
+              //         ),
+              //       ),
+              //     ),
+              //   ],
+              // );
+            }
+
+            return const Center(child: CircularProgressIndicator());
+          }),
     );
   }
 }

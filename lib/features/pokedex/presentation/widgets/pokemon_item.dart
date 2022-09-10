@@ -48,7 +48,14 @@ class _PokemonItemState extends State<PokemonItem> {
                       ? const Center(
                           child: CircularProgressIndicator(),
                         )
-                      : Text("message");
+                      : Center(
+                          child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            widget.message,
+                            style: TextStyle(color: Colors.red),
+                          ),
+                        ));
                 }
                 return GestureDetector(
                   onTap: () {

@@ -25,6 +25,8 @@ class PokemonRemoteDataSourceImp implements PokemonRemoteDataSource {
 
   PokemonRemoteDataSourceImp({required this.httpclient}) {
     httpclient.options.baseUrl = API_URL_BASE;
+    httpclient.interceptors
+        .add(DioCacheManager(CacheConfig(baseUrl: API_URL_BASE)).interceptor);
     // httpclient.interceptors
     //     .add(DioCacheManager(CacheConfig(baseUrl: API_URL_BASE)).interceptor);
   }
@@ -34,8 +36,7 @@ class PokemonRemoteDataSourceImp implements PokemonRemoteDataSource {
     required int offset,
   }) async {
     final url = '/pokemon/?offset=$offset&limit=20';
-    httpclient.interceptors
-        .add(DioCacheManager(CacheConfig(baseUrl: API_URL_BASE)).interceptor);
+
     try {
       final response = await httpclient.get(url,
           options: buildCacheOptions(const Duration(days: 7)));

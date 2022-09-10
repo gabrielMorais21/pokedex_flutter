@@ -77,7 +77,7 @@ class _HomePageState extends State<HomePage> {
                   padding: const EdgeInsets.all(8.0),
                   child: PokemonItem(
                     loading: state.loading,
-                    message: '',
+                    message: state.message,
                     list: state.list,
                     onEndOfPage: () {
                       context.read<PokedexBloc>().add(PokedexFetchList());

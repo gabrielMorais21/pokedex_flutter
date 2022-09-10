@@ -32,8 +32,9 @@ class PokedexBloc extends Bloc<PokedexEvent, PokedexState> {
   ) async {
     emit(
       PokedexLoadedState(
-        loading: false,
+        loading: true,
         list: listPokemon,
+        message: '1',
       ),
     );
     var pokemons = (await getAllPokemons(offset: offset));
@@ -43,15 +44,18 @@ class PokedexBloc extends Bloc<PokedexEvent, PokedexState> {
               if (listPokemon.isEmpty)
                 {
                   emit(const PokedexErrorState(
-                    message: "error loading pokemons",
+                    message: "2",
                   ))
                 }
               else
                 {
-                  // emit(PokedexErrorWithLoadedListState(
-                  //   list: listPokemon,
-                  //   message: "error loading pokemons",
-                  // ))
+                  emit(
+                    PokedexLoadedState(
+                      loading: false,
+                      list: listPokemon,
+                      message: "3",
+                    ),
+                  )
                 }
             },
         (pokemons) => {
@@ -61,6 +65,7 @@ class PokedexBloc extends Bloc<PokedexEvent, PokedexState> {
                 PokedexLoadedState(
                   loading: true,
                   list: listPokemon,
+                  message: '4',
                 ),
               ),
               offset = offset + 20
@@ -75,10 +80,12 @@ class PokedexBloc extends Bloc<PokedexEvent, PokedexState> {
     var pokemons = (await getAllPokemonsByType(event.name));
     return pokemons.fold(
         (failure) => emit(const PokedexErrorState(
-              message: "error loading pokemons",
+              message: "5",
             )),
         (pokemons) => emit(PokedexLoadedState(
+              loading: false,
               list: pokemons,
+              message: '6',
             )));
   }
 
@@ -90,10 +97,9 @@ class PokedexBloc extends Bloc<PokedexEvent, PokedexState> {
     var pokemons = (await getPokemonByName(event.name));
     return pokemons.fold(
         (failure) => emit(const PokedexErrorState(
-              message: "error loading pokemons",
+              message: "8",
             )),
         (pokemons) => emit(PokedexLoadedState(
-              list: [pokemons],
-            )));
+            loading: false, list: [pokemons, pokemons], message: '9')));
   }
 }

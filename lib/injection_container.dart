@@ -1,11 +1,9 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:dio/dio.dart';
 
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart';
-import 'package:pokedex_flutter/core/database/database_helper.dart';
-import 'package:pokedex_flutter/core/database/database_repository.dart';
 import 'package:pokedex_flutter/core/platform/network_info.dart';
-import 'package:pokedex_flutter/features/pokedex/data/datasources/pokemon_local_datasource.dart';
 import 'package:pokedex_flutter/features/pokedex/data/datasources/pokemon_remote_datasource.dart';
 import 'package:pokedex_flutter/features/pokedex/data/repositories/pokemon_repository_imp.dart';
 import 'package:pokedex_flutter/features/pokedex/domain/repositories/pokemon_repository.dart';
@@ -40,21 +38,19 @@ Future<void> init() async {
 
   // repository
 
-  sl.registerLazySingleton<PokemonRepository>(() => PokemonRepositoryImpl(
-      networkInfo: sl(),
-      pokemonLocalDataSource: sl(),
-      pokemonRemoteDataSource: sl()));
+  sl.registerLazySingleton<PokemonRepository>(() =>
+      PokemonRepositoryImpl(networkInfo: sl(), pokemonRemoteDataSource: sl()));
 
-  sl.registerLazySingleton<DatabaseRepository>(
-      () => DatabaseRepositoryImp(database: DatabaseHelper.instance.database));
+  // sl.registerLazySingleton<DatabaseRepository>(
+  //     () => DatabaseRepositoryImp(database: DatabaseHelper.instance.database));
 
   // Data source
 
   sl.registerLazySingleton<PokemonRemoteDataSource>(
       () => PokemonRemoteDataSourceImp(httpclient: sl()));
 
-  sl.registerLazySingleton<PokemonLocalDataSource>(
-      () => PokemonLocalDataSourceImp(databaseRepository: sl()));
+  // sl.registerLazySingleton<PokemonLocalDataSource>(
+  //     () => PokemonLocalDataSourceImp(databaseRepository: sl()));
 
   // core
 
@@ -62,6 +58,6 @@ Future<void> init() async {
 
   //external
 
-  sl.registerLazySingleton(() => Client());
+  sl.registerLazySingleton(() => Dio());
   sl.registerLazySingleton(() => Connectivity());
 }

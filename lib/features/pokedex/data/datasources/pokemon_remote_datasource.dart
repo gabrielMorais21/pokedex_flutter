@@ -1,6 +1,10 @@
 import 'dart:convert';
 
-import 'package:http/http.dart';
+import 'package:dio/dio.dart';
+import 'package:dio_http_cache/dio_http_cache.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+// import 'package:http/http.dart';
+// import 'package:dio/dio.dart';
 import 'package:pokedex_flutter/core/error/exception.dart';
 import 'package:pokedex_flutter/features/pokedex/data/models/pokemon_model.dart';
 import 'package:pokedex_flutter/features/pokedex/data/models/pokemon_type_model.dart';
@@ -20,23 +24,30 @@ const Map<String, String> API_HEADERS = {
 };
 
 class PokemonRemoteDataSourceImp implements PokemonRemoteDataSource {
-  final Client httpclient;
+  final Dio httpclient;
 
-  PokemonRemoteDataSourceImp({required this.httpclient});
+  PokemonRemoteDataSourceImp({required this.httpclient}) {
+    httpclient.options.baseUrl = API_URL_BASE;
+    // httpclient.interceptors
+    //     .add(DioCacheManager(CacheConfig(baseUrl: API_URL_BASE)).interceptor);
+  }
 
   @override
   Future<List<PokemonModel>> getAllPokemon({
     required int offset,
   }) async {
-    final uri = Uri.parse('$API_URL_BASE/pokemon/?offset=$offset&limit=20');
-
+    final url = '/pokemon/?offset=$offset&limit=20';
+    httpclient.interceptors
+        .add(DioCacheManager(CacheConfig(baseUrl: API_URL_BASE)).interceptor);
     try {
-      final response = await httpclient.get(uri, headers: API_HEADERS);
+      final response = await httpclient.get(url,
+          options: buildCacheOptions(Duration(days: 7)));
       if (response.statusCode == 200) {
-        final map = jsonDecode(response.body);
+        // final map = jsonDecode(response.data["results"]);
 
         List<PokemonModel> result = [];
-        var result3 = (map["results"] as List);
+        // var result3 = (map["results"] as List);
+        var result3 = response.data["results"];
         for (var i = 0; i < result3.length; i++) {
           var test = await getPokemonByName(result3[i]["name"]);
           result.add(test);
@@ -55,13 +66,11 @@ class PokemonRemoteDataSourceImp implements PokemonRemoteDataSource {
   @override
   Future<PokemonModel> getPokemonByName(String name) async {
     try {
-      final response = await httpclient.get(
-          Uri.parse(
-            '$API_URL_BASE/pokemon/$name',
-          ),
-          headers: API_HEADERS);
+      var url = '/pokemon/$name';
+      final response = await httpclient.get(url,
+          options: buildCacheOptions(Duration(days: 7)));
       if (response.statusCode == 200) {
-        var pok = PokemonModel.fromJson(jsonDecode(response.body));
+        var pok = PokemonModel.fromJson(response.data);
         return pok;
       } else {
         throw ServerException(
@@ -74,16 +83,18 @@ class PokemonRemoteDataSourceImp implements PokemonRemoteDataSource {
 
   @override
   Future<List<PokemonTypeModel>> getAllTypes() async {
-    final uri = Uri.parse('$API_URL_BASE/type/');
+    print("object");
+    final url = '/type/';
 
     try {
-      final response = await httpclient.get(uri, headers: API_HEADERS);
+      final response = await httpclient.get(url,
+          options: buildCacheOptions(Duration(days: 7)));
       if (response.statusCode == 200) {
-        final map = jsonDecode(response.body);
-
-        List<PokemonTypeModel> result = (map["results"] as List)
-            .map((i) => PokemonTypeModel.fromJson(i))
-            .toList();
+        List<PokemonTypeModel> result = [];
+        List map = response.data["results"];
+        map.forEach((element) {
+          result.add(PokemonTypeModel.fromJson(element));
+        });
 
         return result;
       } else {
@@ -97,12 +108,13 @@ class PokemonRemoteDataSourceImp implements PokemonRemoteDataSource {
 
   @override
   Future<List<PokemonModel>> getAllPokemonByType({required String name}) async {
-    final uri = Uri.parse('$API_URL_BASE/type/$name');
+    final url = '/type/$name';
 
     try {
-      final response = await httpclient.get(uri, headers: API_HEADERS);
+      final response = await httpclient.get(url,
+          options: buildCacheOptions(Duration(days: 7)));
       if (response.statusCode == 200) {
-        final map = jsonDecode(response.body);
+        final map = response.data["results"];
 
         List<PokemonModel> result = [];
         var result3 = (map["pokemon"] as List);

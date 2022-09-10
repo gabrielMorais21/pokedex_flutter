@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
 import 'package:pokedex_flutter/common/consts_app.dart';
@@ -60,11 +61,19 @@ class _PokemonItemState extends State<PokemonItem> {
                                 type: widget.list[index].type[0]['type']
                                     ['name'])
                             ?.withOpacity(0.7),
-                        child:
-                            widget.list[index].sprites["front_default"] != null
-                                ? Image.network(
-                                    widget.list[index].sprites["front_default"])
-                                : Container()),
+                        child: widget.list[index].sprites["front_default"] !=
+                                null
+                            ? CachedNetworkImage(
+                                imageUrl:
+                                    widget.list[index].sprites["front_default"],
+                                progressIndicatorBuilder:
+                                    (context, url, downloadProgress) =>
+                                        CircularProgressIndicator(
+                                            value: downloadProgress.progress),
+                                errorWidget: (context, url, error) =>
+                                    const Icon(Icons.error),
+                              )
+                            : Container()),
                   ),
                 );
               },

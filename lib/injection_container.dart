@@ -1,4 +1,5 @@
-import 'package:data_connection_checker/data_connection_checker.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
+
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart';
 import 'package:pokedex_flutter/core/database/database_helper.dart';
@@ -62,5 +63,5 @@ Future<void> init() async {
   //external
 
   sl.registerLazySingleton(() => Client());
-  sl.registerLazySingleton(() => DataConnectionChecker());
+  sl.registerLazySingleton(() => Connectivity());
 }

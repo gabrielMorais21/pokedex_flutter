@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pokedex_flutter/common/debouncer.dart';
 import 'package:pokedex_flutter/features/pokedex/presentation/bloc/pokedex/pokedex_bloc.dart';
 import 'package:pokedex_flutter/features/pokedex/presentation/bloc/pokedex_categories/pokedex_categories_bloc.dart';
 import 'package:pokedex_flutter/features/pokedex/presentation/bloc/pokedex_categories/pokedex_categories_state.dart';
@@ -14,6 +15,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final _debouncer = Debouncer(milliseconds: 500);
   @override
   void initState() {
     super.initState();
@@ -26,7 +28,26 @@ class _HomePageState extends State<HomePage> {
         toolbarHeight: 120,
         title: Column(
           children: [
-            const Text("Pokedex"),
+            Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  color: Colors.white,
+                  boxShadow: [
+                    // BoxShadow(color: Colors.green, spreadRadius: 3),
+                  ],
+                ),
+                // color: Colors.white,
+                child: TextField(
+                  onChanged: (String value) {
+                    if (value.isNotEmpty) {
+                      _debouncer.run(() => context
+                          .read<PokedexBloc>()
+                          .add(PokedexFetchListByName(name: value)));
+                    }
+                  },
+                  decoration: new InputDecoration(
+                      hintText: ' Ex: Pokemon', suffixIcon: Icon(Icons.search)),
+                )),
             BlocBuilder<PokedexCategoriesBloc, PokedexCategoriesState>(
                 bloc: BlocProvider.of<PokedexCategoriesBloc>(context),
                 builder: (context, state) {
@@ -50,15 +71,14 @@ class _HomePageState extends State<HomePage> {
           bloc: BlocProvider.of<PokedexBloc>(context),
           builder: (context, state) {
             if (state is PokedexLoadedState) {
-              return Stack(
-                children: [
-                  PokemonItem(
-                    list: state.list,
-                    onEndOfPage: () {
-                      context.read<PokedexBloc>().add(PokedexFetchList());
-                    },
-                  ),
-                ],
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: PokemonItem(
+                  list: state.list,
+                  onEndOfPage: () {
+                    context.read<PokedexBloc>().add(PokedexFetchList());
+                  },
+                ),
               );
             }
 

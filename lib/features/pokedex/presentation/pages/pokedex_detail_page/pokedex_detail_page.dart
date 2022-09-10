@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pokedex_flutter/consts/consts_app.dart';
+import 'package:pokedex_flutter/common/consts_app.dart';
 
 class PokedexDetailPage extends StatelessWidget {
   final int id;
@@ -38,7 +38,8 @@ class PokedexDetailPage extends StatelessWidget {
             child: Column(
               children: [
                 Container(
-                    color: ConstsApp.getColorType(type: name)?.withOpacity(0.7),
+                    color: ConstsApp.getColorType(type: type[0]['type']['name'])
+                        ?.withOpacity(0.7),
                     child: Image.network(
                       image,
                       width: 200,
@@ -57,26 +58,77 @@ class PokedexDetailPage extends StatelessWidget {
                     title: Text("tipo: "),
                     subtitle: Text(type[index]['type']['name']),
                   ),
-                for (var index = 0; index < abilities.length; index++)
-                  ListTile(
-                    title: Text("Habilidades: "),
-                    subtitle: Text(abilities[index]['ability']['name']),
+                ListTile(
+                  title: Text("Habilidades: "),
+                  subtitle: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        for (var index = 0; index < abilities.length; index++)
+                          Chip(
+                            padding: const EdgeInsets.all(1),
+                            backgroundColor: Colors.red,
+                            label: Text(abilities[index]['ability']['name'],
+                                style: const TextStyle(color: Colors.white)),
+                          ),
+                      ],
+                    ),
                   ),
-                for (var index = 0; index < form.length; index++)
-                  ListTile(
-                    title: Text("formas: "),
-                    subtitle: Text(form[index]['name']),
+                ),
+                ListTile(
+                  title: Text("formas: "),
+                  subtitle: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        for (var index = 0; index < form.length; index++)
+                          Chip(
+                            padding: const EdgeInsets.all(1),
+                            backgroundColor: Colors.red,
+                            label: Text(form[index]['name'],
+                                style: const TextStyle(color: Colors.white)),
+                          ),
+                      ],
+                    ),
                   ),
-                for (var index = 0; index < atacks.length; index++)
-                  ListTile(
-                    title: Text("atacks: "),
-                    subtitle: Text(atacks[index]['move']['name']),
+                ),
+                ListTile(
+                  title: Text("atacks: "),
+                  subtitle: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        for (var index = 0; index < atacks.length; index++)
+                          Chip(
+                            padding: const EdgeInsets.all(1),
+                            backgroundColor: Colors.red,
+                            label: Text(atacks[index]['move']['name'],
+                                style: const TextStyle(color: Colors.white)),
+                          ),
+                      ],
+                    ),
                   ),
-                for (var index = 0; index < stats.length; index++)
-                  ListTile(
-                    title: Text("stats: "),
-                    subtitle: Text(stats[index]['stat']['name']),
-                  )
+                ),
+                ListTile(
+                  title: Text("stats: "),
+                  subtitle: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        for (var index = 0; index < stats.length; index++)
+                          Chip(
+                            padding: const EdgeInsets.all(1),
+                            backgroundColor: Colors.red,
+                            label: Text(stats[index]['stat']['name'],
+                                style: const TextStyle(color: Colors.white)),
+                          ),
+                      ],
+                    ),
+                  ),
+                  // subtitle: Text(
+                  //   stats[index]['stat']['name'],
+                  // ),
+                ),
               ],
             ),
           ),

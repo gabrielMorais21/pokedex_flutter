@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
-import 'package:pokedex_flutter/consts/consts_app.dart';
+import 'package:pokedex_flutter/common/consts_app.dart';
 import 'package:pokedex_flutter/features/pokedex/domain/entities/pokemon_entity.dart';
 import 'package:pokedex_flutter/features/pokedex/presentation/pages/pokedex_detail_page/pokedex_detail_page.dart';
 

@@ -23,6 +23,7 @@ class PokedexBloc extends Bloc<PokedexEvent, PokedexState> {
       : super(PokedexLoadingState()) {
     on<PokedexFetchList>(_fetchList);
     on<PokedexFetchListByType>(_fetchListByType);
+    on<PokedexFetchListByName>(_fetchListByName);
   }
 
   Future<void> _fetchList(
@@ -62,6 +63,22 @@ class PokedexBloc extends Bloc<PokedexEvent, PokedexState> {
             )),
         (pokemons) => emit(PokedexLoadedState(
               list: pokemons,
+            )));
+  }
+
+  Future<void> _fetchListByName(
+    PokedexFetchListByName event,
+    Emitter<PokedexState> emit,
+  ) async {
+    emit(PokedexLoadingState());
+    var pokemons = (await getPokemonByName(event.name));
+    print(pokemons);
+    return pokemons.fold(
+        (failure) => emit(const PokedexErrorState(
+              message: "error loading pokemons",
+            )),
+        (pokemons) => emit(PokedexLoadedState(
+              list: [pokemons],
             )));
   }
 }

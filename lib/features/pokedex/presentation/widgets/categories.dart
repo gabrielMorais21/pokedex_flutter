@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex_flutter/common/consts_app.dart';
-import 'package:pokedex_flutter/features/pokedex/domain/entities/pokemon_type_entity.dart';
+import 'package:pokedex_flutter/features/pokedex/domain/entities/entities.dart';
 
 class Categories extends StatelessWidget {
   final Function onTap;

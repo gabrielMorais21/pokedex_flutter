@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
 import 'package:pokedex_flutter/common/consts_app.dart';
-import 'package:pokedex_flutter/features/pokedex/domain/entities/pokemon_entity.dart';
+import 'package:pokedex_flutter/features/pokedex/domain/entities/entities.dart';
 import 'package:pokedex_flutter/features/pokedex/presentation/pages/pokedex_detail_page/pokedex_detail_page.dart';
 
 class PokemonItem extends StatefulWidget {
@@ -53,7 +53,7 @@ class _PokemonItemState extends State<PokemonItem> {
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
                             widget.message,
-                            style: TextStyle(color: Colors.red),
+                            style: const TextStyle(color: Colors.red),
                           ),
                         ));
                 }

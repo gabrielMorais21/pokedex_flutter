@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:pokedex_flutter/core/error/failure.dart';
-import 'package:pokedex_flutter/features/pokedex/domain/entities/pokemon_entity.dart';
+import 'package:pokedex_flutter/features/pokedex/domain/entities/entities.dart';
 import 'package:pokedex_flutter/features/pokedex/domain/repositories/pokemon_repository.dart';
 
 class GetAllPokemons {

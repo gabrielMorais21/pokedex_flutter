@@ -27,8 +27,6 @@ class PokemonRemoteDataSourceImp implements PokemonRemoteDataSource {
     httpclient.options.baseUrl = API_URL_BASE;
     httpclient.interceptors
         .add(DioCacheManager(CacheConfig(baseUrl: API_URL_BASE)).interceptor);
-    // httpclient.interceptors
-    //     .add(DioCacheManager(CacheConfig(baseUrl: API_URL_BASE)).interceptor);
   }
 
   @override
@@ -41,10 +39,7 @@ class PokemonRemoteDataSourceImp implements PokemonRemoteDataSource {
       final response = await httpclient.get(url,
           options: buildCacheOptions(const Duration(days: 7)));
       if (response.statusCode == 200) {
-        // final map = jsonDecode(response.data["results"]);
-
         List<PokemonModel> result = [];
-        // var result3 = (map["results"] as List);
         var result3 = response.data["results"];
         for (var i = 0; i < result3.length; i++) {
           var test = await getPokemonByName(result3[i]["name"]);

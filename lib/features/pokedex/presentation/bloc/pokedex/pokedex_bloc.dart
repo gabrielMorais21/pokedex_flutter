@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pokedex_flutter/features/pokedex/domain/entities/pokemon_entity.dart';
-import 'package:pokedex_flutter/features/pokedex/domain/entities/pokemon_type_entity.dart';
+import 'package:pokedex_flutter/features/pokedex/domain/entities/entities.dart';
 import 'package:pokedex_flutter/features/pokedex/domain/usecases/get_all_pokemon/get_all_pokemon.dart';
 import 'package:pokedex_flutter/features/pokedex/domain/usecases/get_all_pokemon_by_type/get_all_pokemon_by_type.dart';
 import 'package:pokedex_flutter/features/pokedex/domain/usecases/get_pokemon_by_name/get_pokemon_by_name.dart';

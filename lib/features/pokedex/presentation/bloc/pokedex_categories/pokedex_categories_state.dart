@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:pokedex_flutter/features/pokedex/domain/entities/pokemon_type_entity.dart';
+import 'package:pokedex_flutter/features/pokedex/domain/entities/entities.dart';
 
 class PokedexCategoriesState extends Equatable {
   const PokedexCategoriesState();

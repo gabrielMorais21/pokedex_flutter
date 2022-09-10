@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:pokedex_flutter/core/error/failure.dart';
-import 'package:pokedex_flutter/features/pokedex/domain/entities/pokemon_entity.dart';
-import 'package:pokedex_flutter/features/pokedex/domain/entities/pokemon_type_entity.dart';
+import 'package:pokedex_flutter/features/pokedex/domain/entities/entities.dart';
 
 abstract class PokemonRepository {
   Future<Either<Failure, List<PokemonEntity>>> getAllPokemons(

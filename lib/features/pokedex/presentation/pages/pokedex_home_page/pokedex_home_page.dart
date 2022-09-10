@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedex_flutter/common/debouncer.dart';
-import 'package:pokedex_flutter/features/pokedex/presentation/bloc/pokedex/pokedex_bloc.dart';
-import 'package:pokedex_flutter/features/pokedex/presentation/bloc/pokedex_categories/pokedex_categories_bloc.dart';
-import 'package:pokedex_flutter/features/pokedex/presentation/bloc/pokedex_categories/pokedex_categories_state.dart';
-import 'package:pokedex_flutter/features/pokedex/presentation/widgets/categories.dart';
-import 'package:pokedex_flutter/features/pokedex/presentation/widgets/pokemon_item.dart';
+import 'package:pokedex_flutter/features/pokedex/presentation/bloc/bloc.dart';
+import 'package:pokedex_flutter/features/pokedex/presentation/widgets/widgets.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -89,34 +86,8 @@ class _HomePageState extends State<HomePage> {
                 return const Center(child: CircularProgressIndicator());
               }
 
-              // if (state is PokedexErrorWithLoadedListState) {
-              //   return Stack(
-              //     children: [
-              //       Padding(
-              //         padding: const EdgeInsets.all(8.0),
-              //         child: PokemonItem(
-              //           list: state.list,
-              //           onEndOfPage: () {
-              //             context.read<PokedexBloc>().add(PokedexFetchList());
-              //           },
-              //         ),
-              //       ),
-              //       const Center(child: Text("data"))
-              //     ],
-              //   );
-              // }
-
               return Container();
             }),
-        // BlocBuilder<PokedexBloc, PokedexState>(
-        //     bloc: BlocProvider.of<PokedexBloc>(context),
-        //     builder: (context, state) {
-        //       if (state is PokedexErrorState) {
-        //         return const Center(child: Text("data"));
-        //       }
-
-        //       return Container();
-        //     }),
       ]),
     );
   }

@@ -1,7 +1,10 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pokedex_flutter/features/pokedex/domain/entities/pokemon_type_entity.dart';
 import 'package:pokedex_flutter/features/pokedex/domain/usecases/usecases.dart';
-import 'package:pokedex_flutter/features/pokedex/presentation/bloc/pokedex_categories/pokedex_categories_event.dart';
-import 'package:pokedex_flutter/features/pokedex/presentation/bloc/pokedex_categories/pokedex_categories_state.dart';
+
+part 'pokedex_categories_event.dart';
+part 'pokedex_categories_state.dart';
 
 class PokedexCategoriesBloc
     extends Bloc<PokedexCategoriesEvent, PokedexCategoriesState> {

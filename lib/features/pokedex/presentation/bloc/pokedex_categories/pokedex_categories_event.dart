@@ -1,4 +1,4 @@
-import 'package:equatable/equatable.dart';
+part of 'pokedex_categories_bloc.dart';
 
 class PokedexCategoriesEvent extends Equatable {
   const PokedexCategoriesEvent();

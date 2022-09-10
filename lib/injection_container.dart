@@ -6,8 +6,7 @@ import 'package:pokedex_flutter/features/pokedex/data/datasources/remote/remote.
 import 'package:pokedex_flutter/features/pokedex/data/repositories/pokemon_repository_imp.dart';
 import 'package:pokedex_flutter/features/pokedex/domain/repositories/repositories.dart';
 import 'package:pokedex_flutter/features/pokedex/domain/usecases/usecases.dart';
-import 'package:pokedex_flutter/features/pokedex/presentation/bloc/pokedex/pokedex_bloc.dart';
-import 'package:pokedex_flutter/features/pokedex/presentation/bloc/pokedex_categories/pokedex_categories_bloc.dart';
+import 'package:pokedex_flutter/features/pokedex/presentation/bloc/bloc.dart';
 
 final sl = GetIt.instance;
 
@@ -35,9 +34,6 @@ Future<void> init() async {
 
   sl.registerLazySingleton<PokemonRepository>(() =>
       PokemonRepositoryImpl(networkInfo: sl(), pokemonRemoteDataSource: sl()));
-
-  // sl.registerLazySingleton<DatabaseRepository>(
-  //     () => DatabaseRepositoryImp(database: DatabaseHelper.instance.database));
 
   // Data source
 

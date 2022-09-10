@@ -1,10 +1,5 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
-// import 'package:http/http.dart';
-// import 'package:dio/dio.dart';
 import 'package:pokedex_flutter/core/error/exception.dart';
 import 'package:pokedex_flutter/features/pokedex/data/models/pokemon_model.dart';
 import 'package:pokedex_flutter/features/pokedex/data/models/pokemon_type_model.dart';
@@ -18,7 +13,9 @@ abstract class PokemonRemoteDataSource {
   Future<List<PokemonTypeModel>> getAllTypes();
 }
 
+// ignore: constant_identifier_names
 const String API_URL_BASE = 'https://pokeapi.co/api/v2';
+// ignore: constant_identifier_names
 const Map<String, String> API_HEADERS = {
   'Content-Type': 'application/json; charset=UTF-8'
 };
@@ -41,7 +38,7 @@ class PokemonRemoteDataSourceImp implements PokemonRemoteDataSource {
         .add(DioCacheManager(CacheConfig(baseUrl: API_URL_BASE)).interceptor);
     try {
       final response = await httpclient.get(url,
-          options: buildCacheOptions(Duration(days: 7)));
+          options: buildCacheOptions(const Duration(days: 7)));
       if (response.statusCode == 200) {
         // final map = jsonDecode(response.data["results"]);
 
@@ -68,7 +65,7 @@ class PokemonRemoteDataSourceImp implements PokemonRemoteDataSource {
     try {
       var url = '/pokemon/$name';
       final response = await httpclient.get(url,
-          options: buildCacheOptions(Duration(days: 7)));
+          options: buildCacheOptions(const Duration(days: 7)));
       if (response.statusCode == 200) {
         var pok = PokemonModel.fromJson(response.data);
         return pok;
@@ -83,18 +80,21 @@ class PokemonRemoteDataSourceImp implements PokemonRemoteDataSource {
 
   @override
   Future<List<PokemonTypeModel>> getAllTypes() async {
-    print("object");
-    final url = '/type/';
+    const url = '/type/';
 
     try {
       final response = await httpclient.get(url,
-          options: buildCacheOptions(Duration(days: 7)));
+          options: buildCacheOptions(const Duration(days: 7)));
       if (response.statusCode == 200) {
         List<PokemonTypeModel> result = [];
         List map = response.data["results"];
-        map.forEach((element) {
+        // map.forEach((element) {
+        //   result.add(PokemonTypeModel.fromJson(element));
+        // });
+
+        for (var element in map) {
           result.add(PokemonTypeModel.fromJson(element));
-        });
+        }
 
         return result;
       } else {
@@ -112,7 +112,7 @@ class PokemonRemoteDataSourceImp implements PokemonRemoteDataSource {
 
     try {
       final response = await httpclient.get(url,
-          options: buildCacheOptions(Duration(days: 7)));
+          options: buildCacheOptions(const Duration(days: 7)));
       if (response.statusCode == 200) {
         final map = response.data["results"];
 

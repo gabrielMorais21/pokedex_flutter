@@ -1,4 +1,3 @@
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:pokedex_flutter/core/error/exception.dart';
 import 'package:pokedex_flutter/core/platform/network_info.dart';
 import 'package:pokedex_flutter/features/pokedex/data/datasources/pokemon_remote_datasource.dart';

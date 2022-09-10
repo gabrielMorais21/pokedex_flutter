@@ -32,9 +32,6 @@ class _HomePageState extends State<HomePage> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(50),
                   color: Colors.white,
-                  boxShadow: [
-                    // BoxShadow(color: Colors.green, spreadRadius: 3),
-                  ],
                 ),
                 // color: Colors.white,
                 child: TextField(
@@ -47,8 +44,10 @@ class _HomePageState extends State<HomePage> {
                       context.read<PokedexBloc>().add(PokedexFetchList());
                     }
                   },
-                  decoration: new InputDecoration(
-                      hintText: ' Ex: Pokemon', suffixIcon: Icon(Icons.search)),
+                  decoration: const InputDecoration(
+                    hintText: ' Ex: Pokemon',
+                    suffixIcon: Icon(Icons.search),
+                  ),
                 )),
             BlocBuilder<PokedexCategoriesBloc, PokedexCategoriesState>(
                 bloc: BlocProvider.of<PokedexCategoriesBloc>(context),

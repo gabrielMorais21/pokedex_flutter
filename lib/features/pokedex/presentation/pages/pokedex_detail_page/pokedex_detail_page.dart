@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pokedex_flutter/common/consts_app.dart';
 
@@ -45,21 +44,21 @@ class PokedexDetailPage extends StatelessWidget {
                       width: 200,
                     )),
                 ListTile(
-                  title: Text("ID: "),
+                  title: const Text("ID: "),
                   subtitle: Text(id.toString()),
                 ),
-                ListTile(title: Text("Nome: "), subtitle: Text(name)),
+                ListTile(title: const Text("Nome: "), subtitle: Text(name)),
                 ListTile(
-                  title: Text("Tamanho: "),
+                  title: const Text("Tamanho: "),
                   subtitle: Text(height.toString()),
                 ),
                 for (var index = 0; index < type.length; index++)
                   ListTile(
-                    title: Text("tipo: "),
+                    title: const Text("tipo: "),
                     subtitle: Text(type[index]['type']['name']),
                   ),
                 ListTile(
-                  title: Text("Habilidades: "),
+                  title: const Text("Habilidades: "),
                   subtitle: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
@@ -76,7 +75,7 @@ class PokedexDetailPage extends StatelessWidget {
                   ),
                 ),
                 ListTile(
-                  title: Text("formas: "),
+                  title: const Text("formas: "),
                   subtitle: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
@@ -93,7 +92,7 @@ class PokedexDetailPage extends StatelessWidget {
                   ),
                 ),
                 ListTile(
-                  title: Text("atacks: "),
+                  title: const Text("atacks: "),
                   subtitle: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
@@ -110,7 +109,7 @@ class PokedexDetailPage extends StatelessWidget {
                   ),
                 ),
                 ListTile(
-                  title: Text("stats: "),
+                  title: const Text("stats: "),
                   subtitle: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(

@@ -1,8 +1,6 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
-
 import 'package:get_it/get_it.dart';
-import 'package:http/http.dart';
 import 'package:pokedex_flutter/core/platform/network_info.dart';
 import 'package:pokedex_flutter/features/pokedex/data/datasources/pokemon_remote_datasource.dart';
 import 'package:pokedex_flutter/features/pokedex/data/repositories/pokemon_repository_imp.dart';

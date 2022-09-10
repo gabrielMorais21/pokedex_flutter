@@ -31,11 +31,9 @@ dependencies:
     sdk: flutter
   flutter_bloc: ^7.0.0
   equatable:
-  # http: ^0.13.5
   dio: ^4.0.6
   dio_http_cache: ^0.3.0
   dartz: ^0.10.1
-  # data_connection_checker: ^0.3.4
   connectivity_plus: ^2.3.6+1
   get_it:
   sqflite: ^2.0.3+1

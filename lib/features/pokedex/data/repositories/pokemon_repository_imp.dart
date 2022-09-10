@@ -1,9 +1,8 @@
-import 'package:pokedex_flutter/core/error/exception.dart';
-import 'package:pokedex_flutter/core/platform/network_info.dart';
+import 'package:pokedex_flutter/core/platform/platform.dart';
 import 'package:pokedex_flutter/features/pokedex/data/datasources/remote/remote.dart';
 import 'package:pokedex_flutter/features/pokedex/data/models/models.dart';
 import 'package:pokedex_flutter/features/pokedex/domain/entities/entities.dart';
-import 'package:pokedex_flutter/core/error/failure.dart';
+import 'package:pokedex_flutter/core/error/error.dart';
 import 'package:dartz/dartz.dart';
 import 'package:pokedex_flutter/features/pokedex/domain/repositories/repositories.dart';
 

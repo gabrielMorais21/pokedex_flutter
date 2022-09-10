@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
-import 'package:pokedex_flutter/core/error/exception.dart';
+import 'package:pokedex_flutter/core/error/error.dart';
 import 'package:pokedex_flutter/features/pokedex/data/datasources/remote/remote.dart';
 import 'package:pokedex_flutter/features/pokedex/data/models/models.dart';
 

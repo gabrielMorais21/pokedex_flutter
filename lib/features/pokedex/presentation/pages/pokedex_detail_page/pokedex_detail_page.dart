@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pokedex_flutter/common/consts_app.dart';
+import 'package:pokedex_flutter/common/common.dart';
 
 class PokedexDetailPage extends StatelessWidget {
   final int id;

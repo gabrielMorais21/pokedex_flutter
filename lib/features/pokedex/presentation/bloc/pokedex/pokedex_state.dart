@@ -18,9 +18,18 @@ class PokedexErrorState extends PokedexState {
 }
 
 class PokedexLoadedState extends PokedexState {
+  final bool loading;
   final List<PokemonEntity> list;
 
-  const PokedexLoadedState({required this.list});
+  const PokedexLoadedState({required this.list, required this.loading});
+}
+
+class PokedexErrorWithLoadedListState extends PokedexState {
+  final String message;
+  final List<PokemonEntity> list;
+
+  const PokedexErrorWithLoadedListState(
+      {required this.list, required this.message});
 }
 
 class PokedexEmptyList extends PokedexState {}

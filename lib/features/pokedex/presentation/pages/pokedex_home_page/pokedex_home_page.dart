@@ -68,23 +68,56 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      body: BlocBuilder<PokedexBloc, PokedexState>(
-          bloc: BlocProvider.of<PokedexBloc>(context),
-          builder: (context, state) {
-            if (state is PokedexLoadedState) {
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: PokemonItem(
-                  list: state.list,
-                  onEndOfPage: () {
-                    context.read<PokedexBloc>().add(PokedexFetchList());
-                  },
-                ),
-              );
-            }
+      body: Stack(children: [
+        BlocBuilder<PokedexBloc, PokedexState>(
+            bloc: BlocProvider.of<PokedexBloc>(context),
+            builder: (context, state) {
+              if (state is PokedexLoadedState) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: PokemonItem(
+                    loading: state.loading,
+                    message: '',
+                    list: state.list,
+                    onEndOfPage: () {
+                      context.read<PokedexBloc>().add(PokedexFetchList());
+                    },
+                  ),
+                );
+              }
+              if (state is PokedexLoadingState) {
+                return const Center(child: CircularProgressIndicator());
+              }
 
-            return const Center(child: CircularProgressIndicator());
-          }),
+              // if (state is PokedexErrorWithLoadedListState) {
+              //   return Stack(
+              //     children: [
+              //       Padding(
+              //         padding: const EdgeInsets.all(8.0),
+              //         child: PokemonItem(
+              //           list: state.list,
+              //           onEndOfPage: () {
+              //             context.read<PokedexBloc>().add(PokedexFetchList());
+              //           },
+              //         ),
+              //       ),
+              //       const Center(child: Text("data"))
+              //     ],
+              //   );
+              // }
+
+              return Container();
+            }),
+        // BlocBuilder<PokedexBloc, PokedexState>(
+        //     bloc: BlocProvider.of<PokedexBloc>(context),
+        //     builder: (context, state) {
+        //       if (state is PokedexErrorState) {
+        //         return const Center(child: Text("data"));
+        //       }
+
+        //       return Container();
+        //     }),
+      ]),
     );
   }
 }

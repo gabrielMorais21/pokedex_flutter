@@ -7,9 +7,16 @@ import 'package:pokedex_flutter/features/pokedex/presentation/pages/pokedex_deta
 
 class PokemonItem extends StatefulWidget {
   final Function onEndOfPage;
+  final String message;
+  final bool loading;
   final List<PokemonEntity> list;
 
-  const PokemonItem({Key? key, required this.list, required this.onEndOfPage})
+  const PokemonItem(
+      {Key? key,
+      required this.list,
+      required this.onEndOfPage,
+      required this.message,
+      required this.loading})
       : super(key: key);
 
   @override
@@ -32,10 +39,17 @@ class _PokemonItemState extends State<PokemonItem> {
           onEndOfPage: () async {
             await widget.onEndOfPage();
           },
-          scrollOffset: 70,
+          // scrollOffset: 70,
           child: ListView.separated(
               controller: controller,
               itemBuilder: (context, index) {
+                if (index + 1 == widget.list.length) {
+                  return widget.loading
+                      ? const Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : Text("message");
+                }
                 return GestureDetector(
                   onTap: () {
                     Navigator.push(

@@ -27,4 +27,6 @@ class PokedexFetchListByType extends PokedexEvent {
 
 class PokedexFetchListWithError extends PokedexEvent {}
 
+class PokedexErrorWithAlreadyLoadedList extends PokedexEvent {}
+
 class PokedexFetchListEmptyList extends PokedexEvent {}

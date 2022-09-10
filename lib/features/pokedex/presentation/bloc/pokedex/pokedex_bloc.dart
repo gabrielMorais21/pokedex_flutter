@@ -30,17 +30,36 @@ class PokedexBloc extends Bloc<PokedexEvent, PokedexState> {
     PokedexEvent event,
     Emitter<PokedexState> emit,
   ) async {
+    emit(
+      PokedexLoadedState(
+        loading: false,
+        list: listPokemon,
+      ),
+    );
     var pokemons = (await getAllPokemons(offset: offset));
 
     return pokemons.fold(
-        (failure) => emit(const PokedexErrorState(
-              message: "error loading pokemons",
-            )),
+        (failure) => {
+              if (listPokemon.isEmpty)
+                {
+                  emit(const PokedexErrorState(
+                    message: "error loading pokemons",
+                  ))
+                }
+              else
+                {
+                  // emit(PokedexErrorWithLoadedListState(
+                  //   list: listPokemon,
+                  //   message: "error loading pokemons",
+                  // ))
+                }
+            },
         (pokemons) => {
               listPokemon.addAll(pokemons),
               emit(PokedexLoadingState()),
               emit(
                 PokedexLoadedState(
+                  loading: true,
                   list: listPokemon,
                 ),
               ),

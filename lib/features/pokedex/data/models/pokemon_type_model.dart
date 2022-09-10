@@ -1,4 +1,3 @@
-import 'package:equatable/equatable.dart';
 import 'package:pokedex_flutter/features/pokedex/domain/entities/pokemon_type_entity.dart';
 
 class PokemonTypeModel extends PokemonTypeEntity {
@@ -13,8 +12,6 @@ class PokemonTypeModel extends PokemonTypeEntity {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    return data;
+    return {'name': name};
   }
 }

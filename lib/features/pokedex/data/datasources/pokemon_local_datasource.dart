@@ -13,10 +13,10 @@ class PokemonLocalDataSourceImp implements PokemonLocalDataSource {
 
   @override
   Future<void> cachePokemons(List<PokemonModel> pokemonsToCache) async {
-    print("call cache");
+    // print("call cache");
     List<PokemonModel> pokemonsAdd = [];
     List<PokemonModel> pokemonsUpdate = [];
-    print("pokemonsToCache");
+    // print("pokemonsToCache");
 
     pokemonsToCache.forEach((element) async {
       await databaseRepository

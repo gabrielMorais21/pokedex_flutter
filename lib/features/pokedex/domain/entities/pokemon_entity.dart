@@ -5,12 +5,12 @@ class PokemonEntity extends Equatable {
   final String name;
   final int height;
   final Map sprites;
-  List<dynamic> type;
-  List<dynamic> abilities;
-  List<dynamic> form;
-  List<dynamic> atacks;
-  List<dynamic> stats;
-  PokemonEntity({
+  final List<dynamic> type;
+  final List<dynamic> abilities;
+  final List<dynamic> form;
+  final List<dynamic> atacks;
+  final List<dynamic> stats;
+  const PokemonEntity({
     required this.id,
     required this.name,
     required this.height,

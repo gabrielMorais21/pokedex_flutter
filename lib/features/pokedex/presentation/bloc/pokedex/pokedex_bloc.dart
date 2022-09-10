@@ -13,7 +13,7 @@ class PokedexBloc extends Bloc<PokedexEvent, PokedexState> {
   final GetAllPokemons getAllPokemons;
   final GetPokemonByName getPokemonByName;
   final GetAllPokemonByType getAllPokemonsByType;
-  int offset = 1;
+  int offset = 0;
   List<PokemonEntity> listPokemon = [];
 
   PokedexBloc(

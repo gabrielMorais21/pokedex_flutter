@@ -28,8 +28,7 @@ class PokemonRemoteDataSourceImp implements PokemonRemoteDataSource {
   Future<List<PokemonModel>> getAllPokemon({
     required int offset,
   }) async {
-    final uri =
-        Uri.parse('https://pokeapi.co/api/v2/pokemon/?offset=$offset&limit=20');
+    final uri = Uri.parse('$API_URL_BASE/pokemon/?offset=$offset&limit=20');
 
     try {
       final response = await httpclient.get(uri, headers: API_HEADERS);
@@ -75,7 +74,7 @@ class PokemonRemoteDataSourceImp implements PokemonRemoteDataSource {
 
   @override
   Future<List<PokemonTypeModel>> getAllTypes() async {
-    final uri = Uri.parse('https://pokeapi.co/api/v2/type/');
+    final uri = Uri.parse('$API_URL_BASE/type/');
 
     try {
       final response = await httpclient.get(uri, headers: API_HEADERS);
@@ -98,7 +97,7 @@ class PokemonRemoteDataSourceImp implements PokemonRemoteDataSource {
 
   @override
   Future<List<PokemonModel>> getAllPokemonByType({required String name}) async {
-    final uri = Uri.parse('https://pokeapi.co/api/v2/type/$name');
+    final uri = Uri.parse('$API_URL_BASE/type/$name');
 
     try {
       final response = await httpclient.get(uri, headers: API_HEADERS);

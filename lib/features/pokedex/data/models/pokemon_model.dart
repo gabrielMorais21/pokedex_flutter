@@ -1,7 +1,7 @@
 import 'package:pokedex_flutter/features/pokedex/domain/entities/pokemon_entity.dart';
 
 class PokemonModel extends PokemonEntity {
-  PokemonModel(
+  const PokemonModel(
       {required int id,
       required String name,
       required int height,

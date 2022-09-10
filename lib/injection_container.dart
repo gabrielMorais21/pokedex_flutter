@@ -2,13 +2,10 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pokedex_flutter/core/platform/network_info.dart';
-import 'package:pokedex_flutter/features/pokedex/data/datasources/pokemon_remote_datasource.dart';
+import 'package:pokedex_flutter/features/pokedex/data/datasources/remote/remote.dart';
 import 'package:pokedex_flutter/features/pokedex/data/repositories/pokemon_repository_imp.dart';
-import 'package:pokedex_flutter/features/pokedex/domain/repositories/pokemon_repository.dart';
-import 'package:pokedex_flutter/features/pokedex/domain/usecases/get_all_pokemon/get_all_pokemon.dart';
-import 'package:pokedex_flutter/features/pokedex/domain/usecases/get_all_pokemon_by_type/get_all_pokemon_by_type.dart';
-import 'package:pokedex_flutter/features/pokedex/domain/usecases/get_all_types/get_all_types.dart';
-import 'package:pokedex_flutter/features/pokedex/domain/usecases/get_pokemon_by_name/get_pokemon_by_name.dart';
+import 'package:pokedex_flutter/features/pokedex/domain/repositories/repositories.dart';
+import 'package:pokedex_flutter/features/pokedex/domain/usecases/usecases.dart';
 import 'package:pokedex_flutter/features/pokedex/presentation/bloc/pokedex/pokedex_bloc.dart';
 import 'package:pokedex_flutter/features/pokedex/presentation/bloc/pokedex_categories/pokedex_categories_bloc.dart';
 
@@ -46,9 +43,6 @@ Future<void> init() async {
 
   sl.registerLazySingleton<PokemonRemoteDataSource>(
       () => PokemonRemoteDataSourceImp(httpclient: sl()));
-
-  // sl.registerLazySingleton<PokemonLocalDataSource>(
-  //     () => PokemonLocalDataSourceImp(databaseRepository: sl()));
 
   // core
 

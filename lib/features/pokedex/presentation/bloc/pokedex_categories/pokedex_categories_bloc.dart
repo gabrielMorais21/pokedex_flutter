@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pokedex_flutter/features/pokedex/domain/usecases/get_all_types/get_all_types.dart';
+import 'package:pokedex_flutter/features/pokedex/domain/usecases/usecases.dart';
 import 'package:pokedex_flutter/features/pokedex/presentation/bloc/pokedex_categories/pokedex_categories_event.dart';
 import 'package:pokedex_flutter/features/pokedex/presentation/bloc/pokedex_categories/pokedex_categories_state.dart';
 

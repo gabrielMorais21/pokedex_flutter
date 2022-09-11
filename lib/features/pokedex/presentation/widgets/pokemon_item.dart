@@ -65,7 +65,7 @@ class _PokemonItemState extends State<PokemonItem> {
           children: [
             Positioned(
               height: 230,
-              left: 100,
+              // left: 100,
               child: SvgPicture.asset(
                 'assets/poke-types/${widget.pokemonEntity.type[0]['type']['name']}.svg',
                 color: (ConstsApp.getColorType(
@@ -99,16 +99,25 @@ class _PokemonItemState extends State<PokemonItem> {
                           color: Colors.white,
                         ),
                       ),
-                      Chip(
-                        padding: const EdgeInsets.all(1),
-                        backgroundColor: Darken.darken(ConstsApp.getColorType(
-                                type: widget.pokemonEntity.type[0]['type']
-                                    ['name'])
-                            ?.withOpacity(0.7)),
-                        label: Text(
-                            widget.pokemonEntity.type[0]['type']['name'],
-                            style: const TextStyle(color: Colors.white)),
-                      ),
+                      Row(
+                        children: [
+                          for (var index = 0;
+                              index < widget.pokemonEntity.type.length;
+                              index++)
+                            Chip(
+                              padding: const EdgeInsets.all(1),
+                              backgroundColor: Darken.darken(
+                                  ConstsApp.getColorType(
+                                          type: widget.pokemonEntity.type[index]
+                                              ['type']['name'])
+                                      ?.withOpacity(0.7)),
+                              label: Text(
+                                  widget.pokemonEntity.type[index]['type']
+                                      ['name'],
+                                  style: const TextStyle(color: Colors.white)),
+                            ),
+                        ],
+                      )
                     ],
                   ),
                 ),

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
 import 'package:pokedex_flutter/features/pokedex/domain/entities/entities.dart';
@@ -9,7 +8,7 @@ class PokemonList extends StatelessWidget {
   final String message;
   final bool loading;
   final List<PokemonEntity> list;
-  ScrollController controller = ScrollController();
+  final ScrollController controller = ScrollController();
 
   PokemonList(
       {Key? key,

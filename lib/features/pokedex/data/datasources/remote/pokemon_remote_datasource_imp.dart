@@ -94,12 +94,12 @@ class PokemonRemoteDataSourceImp implements PokemonRemoteDataSource {
       final response = await httpclient.get(url,
           options: buildCacheOptions(const Duration(days: 7)));
       if (response.statusCode == 200) {
-        final map = response.data["results"];
+        final map = response.data["pokemon"];
 
         List<PokemonModel> result = [];
-        var result3 = (map["pokemon"] as List);
-        for (var i = 0; i < result3.length; i++) {
-          var test = await getPokemonByName(result3[i]["pokemon"]["name"]);
+        // var result3 = (map["pokemon"] as List);
+        for (var i = 0; i < map.length; i++) {
+          var test = await getPokemonByName(map[i]["pokemon"]["name"]);
           result.add(test);
         }
 

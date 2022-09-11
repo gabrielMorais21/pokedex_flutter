@@ -15,21 +15,21 @@ class Categories extends StatelessWidget {
       child: Row(
         children: [
           for (var i = 0; i < list.length; i++)
-            GestureDetector(
-              onTap: () => onTap(list[i].name),
-              child: Chip(
-                padding: const EdgeInsets.all(1),
-                backgroundColor: ConstsApp.getColorType(type: list[i].name)
-                    ?.withOpacity(0.8),
-                label: Text(list[i].name,
-                    style: const TextStyle(color: Colors.white)),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GestureDetector(
+                onTap: () => onTap(list[i].name),
+                child: Chip(
+                  padding: const EdgeInsets.all(1),
+                  backgroundColor: ConstsApp.getColorType(type: list[i].name)
+                      ?.withOpacity(0.8),
+                  label: Text(list[i].name,
+                      style: const TextStyle(
+                        color: Color(0XFF2c2c2c),
+                      )),
+                ),
               ),
             ),
-          // Chip(
-          //   padding: EdgeInsets.all(0),
-          //   backgroundColor: Colors.deepPurple,
-          //   label: Text('BADGE', style: TextStyle(color: Colors.white)),
-          // ),
         ],
       ),
     );

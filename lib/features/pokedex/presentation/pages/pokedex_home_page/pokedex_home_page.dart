@@ -22,7 +22,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0XFF2c2c2c),
       appBar: AppBar(
+        backgroundColor: Colors.black,
         toolbarHeight: 120,
         title: Column(
           children: [
@@ -31,7 +33,6 @@ class _HomePageState extends State<HomePage> {
                   borderRadius: BorderRadius.circular(50),
                   color: Colors.white,
                 ),
-                // color: Colors.white,
                 child: TextField(
                   onChanged: (String value) {
                     if (value.isNotEmpty) {
@@ -43,8 +44,14 @@ class _HomePageState extends State<HomePage> {
                     }
                   },
                   decoration: const InputDecoration(
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.only(
+                        left: 15, bottom: 11, top: 13, right: 15),
                     hintText: ' Ex: Pokemon',
-                    suffixIcon: Icon(Icons.search),
+                    suffixIcon: Icon(
+                      Icons.search,
+                      color: Colors.black,
+                    ),
                   ),
                 )),
             BlocBuilder<PokedexCategoriesBloc, PokedexCategoriesState>(

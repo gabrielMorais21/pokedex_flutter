@@ -9,9 +9,10 @@ void main() async {
   await di.init();
   runApp(MaterialApp(
     title: 'Flutter BloC',
-    theme: ThemeData(
-      primarySwatch: Colors.blue,
-    ),
+    theme: ThemeData.light(),
+    // theme: ThemeData(scaffoldBackgroundColor: Colors.white
+    //     // primarySwatch: Colors,
+    //     ),
     home: MultiBlocProvider(providers: [
       BlocProvider(
         create: (BuildContext context) =>

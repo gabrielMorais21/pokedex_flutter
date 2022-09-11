@@ -70,10 +70,27 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
-  # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - assets/pokemon-png.png
+    - assets/pokeball.png
+    - assets/poke-types/fire.svg
+    - assets/poke-types/bug.svg
+    - assets/poke-types/dark.svg
+    - assets/poke-types/dragon.svg
+    - assets/poke-types/electric.svg
+    - assets/poke-types/fairy.svg
+    - assets/poke-types/fighting.svg
+    - assets/poke-types/flying.svg
+    - assets/poke-types/ghost.svg
+    - assets/poke-types/grass.svg
+    - assets/poke-types/ground.svg
+    - assets/poke-types/ice.svg
+    - assets/poke-types/normal.svg
+    - assets/poke-types/psychic.svg
+    - assets/poke-types/poison.svg
+    - assets/poke-types/rock.svg
+    - assets/poke-types/steel.svg
+    - assets/poke-types/water.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedex_flutter/common/common.dart';
 import 'package:pokedex_flutter/features/pokedex/presentation/bloc/bloc.dart';
+import 'package:pokedex_flutter/features/pokedex/presentation/widgets/pokemon_list.dart';
 import 'package:pokedex_flutter/features/pokedex/presentation/widgets/widgets.dart';
 
 class HomePage extends StatefulWidget {
@@ -72,7 +73,7 @@ class _HomePageState extends State<HomePage> {
               if (state is PokedexLoadedState) {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: PokemonItem(
+                  child: PokemonList(
                     loading: state.loading,
                     message: state.message,
                     list: state.list,

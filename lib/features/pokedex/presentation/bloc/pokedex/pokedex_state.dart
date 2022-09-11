@@ -29,6 +29,20 @@ class PokedexLoadedState extends PokedexState {
   });
 }
 
+class PokedexLoadedByTypeState extends PokedexState {
+  final List<PokemonEntity> list;
+
+  const PokedexLoadedByTypeState({
+    required this.list,
+  });
+}
+
+class PokedexFetchListByNameState extends PokedexState {
+  final PokemonEntity pokemonEntity;
+
+  const PokedexFetchListByNameState({required this.pokemonEntity});
+}
+
 class PokedexErrorWithLoadedListState extends PokedexState {
   final String message;
   final List<PokemonEntity> list;

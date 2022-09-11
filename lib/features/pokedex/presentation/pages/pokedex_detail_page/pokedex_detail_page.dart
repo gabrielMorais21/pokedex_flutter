@@ -7,7 +7,7 @@ class PokedexDetailPage extends StatelessWidget {
   final int id;
   final String name;
   final int height;
-  final String image;
+  final Map sprites;
   final List<dynamic> type;
   final List<dynamic> abilities;
   final List<dynamic> form;
@@ -19,7 +19,7 @@ class PokedexDetailPage extends StatelessWidget {
       required this.id,
       required this.name,
       required this.height,
-      required this.image,
+      required this.sprites,
       required this.type,
       required this.abilities,
       required this.form,
@@ -39,7 +39,7 @@ class PokedexDetailPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
+            SizedBox(
               height: MediaQuery.of(context).size.height * 0.4,
               child: Stack(
                 children: [
@@ -57,11 +57,20 @@ class PokedexDetailPage extends StatelessWidget {
                         height: 160,
                         child: Hero(
                           tag: id,
-                          child: CachedNetworkImage(
-                            imageUrl:
-                                "https://cdn.traction.one/pokedex/pokemon/${id}.png",
-                            fit: BoxFit.cover,
-                          ),
+                          child: sprites["front_default"] != null
+                              ? CachedNetworkImage(
+                                  imageUrl:
+                                      "https://cdn.traction.one/pokedex/pokemon/${id}.png",
+                                  // imageUrl:
+                                  //     widget.pokemonEntity.sprites["front_default"],
+                                  fit: BoxFit.cover,
+                                  errorWidget: (context, url, error) =>
+                                      // Icon(Icons.error),
+                                      CachedNetworkImage(
+                                        imageUrl: sprites["front_default"],
+                                        fit: BoxFit.cover,
+                                      ))
+                              : Image.asset('assets/pokeball.png'),
                         ),
                       ),
                     ),

@@ -79,10 +79,10 @@ class PokedexBloc extends Bloc<PokedexEvent, PokedexState> {
         (failure) => emit(const PokedexErrorState(
               message: "5",
             )),
-        (pokemons) => emit(PokedexLoadedState(
-              loading: false,
+        (pokemons) => emit(PokedexLoadedByTypeState(
+              // loading: false,
               list: pokemons,
-              message: '6',
+              // message: '6',
             )));
   }
 
@@ -96,7 +96,7 @@ class PokedexBloc extends Bloc<PokedexEvent, PokedexState> {
         (failure) => emit(const PokedexErrorState(
               message: "8",
             )),
-        (pokemons) => emit(PokedexLoadedState(
-            loading: false, list: [pokemons, pokemons], message: '9')));
+        (pokemons) =>
+            emit(PokedexFetchListByNameState(pokemonEntity: pokemons)));
   }
 }

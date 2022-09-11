@@ -37,7 +37,7 @@ class _PokemonItemState extends State<PokemonItem> {
                   id: widget.pokemonEntity.id,
                   name: widget.pokemonEntity.name,
                   height: widget.pokemonEntity.height,
-                  image: widget.pokemonEntity.sprites["front_default"],
+                  sprites: widget.pokemonEntity.sprites,
                   type: widget.pokemonEntity.type,
                   abilities: widget.pokemonEntity.abilities,
                   form: widget.pokemonEntity.form,
@@ -91,12 +91,17 @@ class _PokemonItemState extends State<PokemonItem> {
                           color: Colors.black87,
                         ),
                       ),
-                      Text(
-                        "${widget.pokemonEntity.name[0].toUpperCase()}${widget.pokemonEntity.name.substring(1)}",
-                        style: const TextStyle(
-                          fontSize: 26,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                      SizedBox(
+                        width: 100,
+                        child: Text(
+                          "${widget.pokemonEntity.name[0].toUpperCase()}${widget.pokemonEntity.name.substring(1)}",
+                          style: const TextStyle(
+                            fontSize: 26,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          // softWrap: false,
                         ),
                       ),
                       Row(
@@ -127,11 +132,22 @@ class _PokemonItemState extends State<PokemonItem> {
                       height: 160,
                       child: Hero(
                         tag: widget.pokemonEntity.id,
-                        child: CachedNetworkImage(
-                          imageUrl:
-                              "https://cdn.traction.one/pokedex/pokemon/${widget.pokemonEntity.id}.png",
-                          fit: BoxFit.cover,
-                        ),
+                        child: widget.pokemonEntity.sprites["front_default"] !=
+                                null
+                            ? CachedNetworkImage(
+                                imageUrl:
+                                    "https://cdn.traction.one/pokedex/pokemon/${widget.pokemonEntity.id}.png",
+                                // imageUrl:
+                                //     widget.pokemonEntity.sprites["front_default"],
+                                fit: BoxFit.cover,
+                                errorWidget: (context, url, error) =>
+                                    // Icon(Icons.error),
+                                    CachedNetworkImage(
+                                      imageUrl: widget.pokemonEntity
+                                          .sprites["front_default"],
+                                      fit: BoxFit.cover,
+                                    ))
+                            : Image.asset('assets/pokeball.png'),
                       ),
                     ),
                   ),

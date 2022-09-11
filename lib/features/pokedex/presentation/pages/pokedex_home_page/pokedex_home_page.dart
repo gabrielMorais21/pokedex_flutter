@@ -93,6 +93,26 @@ class _HomePageState extends State<HomePage> {
               if (state is PokedexLoadingState) {
                 return const Center(child: CircularProgressIndicator());
               }
+              if (state is PokedexLoadedByTypeState) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: PokemonList(
+                    loading: false,
+                    message: '',
+                    list: state.list,
+                    onEndOfPage: () {},
+                  ),
+                );
+              }
+
+              if (state is PokedexFetchListByNameState) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: PokemonItem(
+                    pokemonEntity: state.pokemonEntity,
+                  ),
+                );
+              }
 
               return Container();
             }),

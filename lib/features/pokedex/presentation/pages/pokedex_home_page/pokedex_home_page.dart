@@ -68,6 +68,12 @@ class _HomePageState extends State<HomePage> {
                     );
                   }
 
+                  if (state is PokedexCategoriesErrorState) {
+                    return Center(
+                      child: Text(state.message),
+                    );
+                  }
+
                   return const Center(child: CircularProgressIndicator());
                 }),
           ],
@@ -89,6 +95,12 @@ class _HomePageState extends State<HomePage> {
                     },
                   ),
                 );
+              }
+
+              if (state is PokedexErrorState) {
+                return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Center(child: Text(state.message)));
               }
               if (state is PokedexLoadingState) {
                 return const Center(child: CircularProgressIndicator());

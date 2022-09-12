@@ -27,30 +27,25 @@ class PokedexBloc extends Bloc<PokedexEvent, PokedexState> {
     PokedexEvent event,
     Emitter<PokedexState> emit,
   ) async {
-    emit(
-      PokedexLoadedState(
-        loading: true,
-        list: listPokemon,
-        message: '1',
-      ),
-    );
     var pokemons = (await getAllPokemons(offset: offset));
 
     return pokemons.fold(
         (failure) => {
               if (listPokemon.isEmpty)
                 {
+                  emit(PokedexLoadingState()),
                   emit(const PokedexErrorState(
-                    message: "2",
+                    message: "Erro ao carregar pokemons",
                   ))
                 }
               else
                 {
+                  emit(PokedexLoadingState()),
                   emit(
                     PokedexLoadedState(
                       loading: false,
                       list: listPokemon,
-                      message: "3",
+                      message: "Erro ao carregar mais pokemons",
                     ),
                   )
                 }
@@ -62,7 +57,7 @@ class PokedexBloc extends Bloc<PokedexEvent, PokedexState> {
                 PokedexLoadedState(
                   loading: true,
                   list: listPokemon,
-                  message: '4',
+                  message: '',
                 ),
               ),
               offset = offset + 20
@@ -80,9 +75,7 @@ class PokedexBloc extends Bloc<PokedexEvent, PokedexState> {
               message: "5",
             )),
         (pokemons) => emit(PokedexLoadedByTypeState(
-              // loading: false,
               list: pokemons,
-              // message: '6',
             )));
   }
 
@@ -94,7 +87,7 @@ class PokedexBloc extends Bloc<PokedexEvent, PokedexState> {
     var pokemons = (await getPokemonByName(event.name));
     return pokemons.fold(
         (failure) => emit(const PokedexErrorState(
-              message: "8",
+              message: "Não foi possivel encontrar o pokemon pelo nome",
             )),
         (pokemons) =>
             emit(PokedexFetchListByNameState(pokemonEntity: pokemons)));

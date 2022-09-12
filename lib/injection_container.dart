@@ -13,7 +13,7 @@ final sl = GetIt.instance;
 Future<void> init() async {
   // bloc
   sl.registerFactory(() => PokedexBloc(
-      getAllPokemons: GetAllPokemons(repository: sl()),
+      getAllPokemons: GetAllPokemonImp(repository: sl()),
       getPokemonByName: GetPokemonByName(repository: sl()),
       getAllPokemonsByType: GetAllPokemonByType(repository: sl())));
 
@@ -26,7 +26,7 @@ Future<void> init() async {
   );
 
   // use cases
-  sl.registerLazySingleton(() => GetAllPokemons(repository: sl()));
+  sl.registerLazySingleton(() => GetAllPokemonImp(repository: sl()));
   sl.registerLazySingleton(() => GetPokemonByName(repository: sl()));
   sl.registerLazySingleton(() => GetAllTypes(repository: sl()));
 

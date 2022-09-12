@@ -35,7 +35,15 @@ class PokemonRepositoryImpl implements PokemonRepository {
   @override
   Future<Either<Failure, PokemonEntity>> getPokemonByName(
       {required String name}) async {
-    return Right(await pokemonRemoteDataSource.getPokemonByName(name));
+    var isisConnected = await networkInfo.isConnected();
+    isisConnected = true;
+    if (isisConnected) {
+      try {
+        return Right(await pokemonRemoteDataSource.getPokemonByName(name));
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    }
   }
 
   @override
@@ -46,7 +54,6 @@ class PokemonRepositoryImpl implements PokemonRepository {
       try {
         final List<PokemonTypeModel> pokemons =
             await pokemonRemoteDataSource.getAllTypes();
-        // pokemonLocalDataSource.cachePokemons(pokemons);
         return Right(pokemons);
       } on ServerException {
         return Left(ServerFailure());

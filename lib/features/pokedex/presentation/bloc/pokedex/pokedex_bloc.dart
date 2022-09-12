@@ -69,7 +69,7 @@ class PokedexBloc extends Bloc<PokedexEvent, PokedexState> {
     Emitter<PokedexState> emit,
   ) async {
     emit(PokedexLoadingState());
-    var pokemons = (await getAllPokemonsByType(event.name));
+    var pokemons = (await getAllPokemonsByType(type: event.name));
     return pokemons.fold(
         (failure) => emit(const PokedexErrorState(
               message: "5",

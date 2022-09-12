@@ -51,27 +51,25 @@ class PokedexDetailPage extends StatelessWidget {
                               ?.withOpacity(0.7)),
                     ),
                   ),
-                  Expanded(
-                    child: Center(
-                      child: SizedBox(
-                        height: 160,
-                        child: Hero(
-                          tag: id,
-                          child: sprites["front_default"] != null
-                              ? CachedNetworkImage(
-                                  imageUrl:
-                                      "https://cdn.traction.one/pokedex/pokemon/${id}.png",
-                                  // imageUrl:
-                                  //     widget.pokemonEntity.sprites["front_default"],
-                                  fit: BoxFit.cover,
-                                  errorWidget: (context, url, error) =>
-                                      // Icon(Icons.error),
-                                      CachedNetworkImage(
-                                        imageUrl: sprites["front_default"],
-                                        fit: BoxFit.cover,
-                                      ))
-                              : Image.asset('assets/pokeball.png'),
-                        ),
+                  Center(
+                    child: SizedBox(
+                      height: 160,
+                      child: Hero(
+                        tag: id,
+                        child: sprites["front_default"] != null
+                            ? CachedNetworkImage(
+                                imageUrl:
+                                    "https://cdn.traction.one/pokedex/pokemon/$id.png",
+                                // imageUrl:
+                                //     widget.pokemonEntity.sprites["front_default"],
+                                fit: BoxFit.cover,
+                                errorWidget: (context, url, error) =>
+                                    // Icon(Icons.error),
+                                    CachedNetworkImage(
+                                      imageUrl: sprites["front_default"],
+                                      fit: BoxFit.cover,
+                                    ))
+                            : Image.asset('assets/pokeball.png'),
                       ),
                     ),
                   ),
@@ -79,8 +77,7 @@ class PokedexDetailPage extends StatelessWidget {
               ),
             ),
             Container(
-              padding: EdgeInsets.all(10),
-              // height: MediaQuery.of(context).size.height * 0.4,
+              padding: const EdgeInsets.all(10),
               width: double.infinity,
               color: Colors.transparent,
               child: Container(
@@ -165,11 +162,11 @@ class PokedexDetailPage extends StatelessWidget {
                             ),
                           ),
                           ListTile(
-                            title: Text("altura "),
+                            title: const Text("altura "),
                             subtitle: SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
                               child: Column(
-                                children: [Text("${height}")],
+                                children: [Text("$height")],
                               ),
                             ),
                           ),
@@ -184,7 +181,7 @@ class PokedexDetailPage extends StatelessWidget {
                                       ConstsApp.getColorType(
                                               type: type[0]['type']['name'])
                                           ?.withOpacity(0.7)),
-                                  label: Container(
+                                  label: SizedBox(
                                     width: 60,
                                     child: Center(
                                       child: Text(

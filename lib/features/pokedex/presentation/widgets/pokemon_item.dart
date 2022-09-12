@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
 import 'package:pokedex_flutter/common/common.dart';
 import 'package:pokedex_flutter/features/pokedex/domain/entities/entities.dart';
 import 'package:pokedex_flutter/features/pokedex/presentation/pages/pages.dart';

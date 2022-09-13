@@ -84,7 +84,7 @@ class PokedexBloc extends Bloc<PokedexEvent, PokedexState> {
     Emitter<PokedexState> emit,
   ) async {
     emit(PokedexLoadingState());
-    var pokemons = (await getPokemonByName(event.name));
+    var pokemons = (await getPokemonByName(name: event.name));
     return pokemons.fold(
         (failure) => emit(const PokedexErrorState(
               message: "Não foi possivel encontrar o pokemon pelo nome",

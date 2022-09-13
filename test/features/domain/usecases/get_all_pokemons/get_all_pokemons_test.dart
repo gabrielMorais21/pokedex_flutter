@@ -21,7 +21,6 @@ class GetAllPokemonsSpy extends Mock implements GetAllPokemons {
   }
 }
 
-@GenerateMocks([GetAllPokemonsSpy])
 Future<void> main() async {
   final GetAllPokemonsSpy mockSucessGetAllPokemons = GetAllPokemonsSpy();
 

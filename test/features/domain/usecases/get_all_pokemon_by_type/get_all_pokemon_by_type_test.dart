@@ -17,25 +17,24 @@ class GetAllPokemonByTypeSpy extends Mock implements GetAllPokemonByType {
   }
 
   Future<Either<Failure, List<PokemonEntity>>> callFailed(
-      {required int offset}) async {
+      {required String name}) async {
     return Left(ServerFailure());
   }
 }
 
-@GenerateMocks([GetAllPokemonByTypeSpy])
 Future<void> main() async {
   final GetAllPokemonByTypeSpy mockSucessGetAllPokemons =
       GetAllPokemonByTypeSpy();
 
   test('Should return a list of pokemonEntity', () async {
-    final res = await mockSucessGetAllPokemons.callSuccess(name: 'pikachu');
+    final res = await mockSucessGetAllPokemons.callSuccess(name: 'poison');
 
     res.fold((failure) => null,
         (pokemons) => {expect(pokemons, isA<List<PokemonEntity>>())});
   });
 
   test('Should return a ServerFailure', () async {
-    final res = await mockSucessGetAllPokemons.callFailed(offset: 1);
+    final res = await mockSucessGetAllPokemons.callFailed(name: "poison");
     res.fold((failure) => null,
         (pokemons) => {expect(pokemons, isInstanceOf<ServerFailure>())});
   });

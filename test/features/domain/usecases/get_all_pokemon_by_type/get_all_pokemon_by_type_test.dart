@@ -17,7 +17,7 @@ class GetAllPokemonByTypeSpy extends Mock implements GetAllPokemonByType {
 
   Future<Either<Failure, List<PokemonEntity>>> callFailed(
       {required String name}) async {
-    return Left(ServerFailure());
+    return const Left(ServerFailure(message: ''));
   }
 }
 

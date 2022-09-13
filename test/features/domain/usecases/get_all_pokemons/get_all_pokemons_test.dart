@@ -16,7 +16,7 @@ class GetAllPokemonsSpy extends Mock implements GetAllPokemons {
 
   Future<Either<Failure, List<PokemonEntity>>> callFailed(
       {required int offset}) async {
-    return Left(ServerFailure());
+    return const Left(ServerFailure(message: ''));
   }
 }
 

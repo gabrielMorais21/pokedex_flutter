@@ -13,7 +13,7 @@ class GetAllTypesSpy extends Mock implements GetAllTypes {
   }
 
   Future<Either<Failure, List<PokemonTypeEntity>>> callFailed() async {
-    return Left(ServerFailure());
+    return const Left(ServerFailure(message: ''));
   }
 }
 

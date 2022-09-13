@@ -21,7 +21,8 @@ class PokemonRepositoryImpl implements PokemonRepository {
 
       return Right(pokemons);
     } on ServerException {
-      return Left(ServerFailure());
+      return const Left(
+          ServerFailure(message: "Não foi possível consultar pokemons"));
     }
   }
 
@@ -31,7 +32,8 @@ class PokemonRepositoryImpl implements PokemonRepository {
     try {
       return Right(await pokemonRemoteDataSource.getPokemonByName(name));
     } on ServerException {
-      return Left(ServerFailure());
+      return const Left(ServerFailure(
+          message: "Não foi possível consultar pokemon por nome"));
     }
   }
 
@@ -42,7 +44,8 @@ class PokemonRepositoryImpl implements PokemonRepository {
           await pokemonRemoteDataSource.getAllTypes();
       return Right(pokemons);
     } on ServerException {
-      return Left(ServerFailure());
+      return const Left(
+          ServerFailure(message: "Não foi possível consultar categorias"));
     }
   }
 
@@ -55,7 +58,8 @@ class PokemonRepositoryImpl implements PokemonRepository {
 
       return Right(pokemons);
     } on ServerException {
-      return Left(ServerFailure());
+      return const Left(ServerFailure(
+          message: "Não foi possível consultar pokemons por tipo"));
     }
   }
 }

@@ -26,8 +26,8 @@ class PokedexCategoriesBloc
     var type = (await getAllTypes());
     return type.fold(
       (failure) => emit(
-        const PokedexCategoriesErrorState(
-          message: "Erro ao carregar categorias",
+        PokedexCategoriesErrorState(
+          message: failure.message,
         ),
       ),
       (types) => emit(

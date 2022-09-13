@@ -17,7 +17,7 @@ class GetPokemonByNameSpy extends Mock implements GetPokemonByName {
 
   Future<Either<Failure, PokemonEntity>> callFailed(
       {required String name}) async {
-    return Left(ServerFailure());
+    return const Left(ServerFailure(message: ''));
   }
 }
 

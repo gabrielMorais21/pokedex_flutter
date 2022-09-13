@@ -34,8 +34,8 @@ class PokedexBloc extends Bloc<PokedexEvent, PokedexState> {
               if (listPokemon.isEmpty)
                 {
                   emit(PokedexLoadingState()),
-                  emit(const PokedexErrorState(
-                    message: "Erro ao carregar pokemons",
+                  emit(PokedexErrorState(
+                    message: failure.message,
                   ))
                 }
               else
@@ -45,7 +45,7 @@ class PokedexBloc extends Bloc<PokedexEvent, PokedexState> {
                     PokedexLoadedState(
                       loading: false,
                       list: listPokemon,
-                      message: "Erro ao carregar mais pokemons",
+                      message: failure.message,
                     ),
                   )
                 }
@@ -71,8 +71,8 @@ class PokedexBloc extends Bloc<PokedexEvent, PokedexState> {
     emit(PokedexLoadingState());
     var pokemons = (await getAllPokemonsByType(type: event.name));
     return pokemons.fold(
-        (failure) => emit(const PokedexErrorState(
-              message: "5",
+        (failure) => emit(PokedexErrorState(
+              message: failure.message,
             )),
         (pokemons) => emit(PokedexLoadedByTypeState(
               list: pokemons,
@@ -86,8 +86,8 @@ class PokedexBloc extends Bloc<PokedexEvent, PokedexState> {
     emit(PokedexLoadingState());
     var pokemons = (await getPokemonByName(name: event.name));
     return pokemons.fold(
-        (failure) => emit(const PokedexErrorState(
-              message: "Não foi possivel encontrar o pokemon pelo nome",
+        (failure) => emit(PokedexErrorState(
+              message: failure.message,
             )),
         (pokemons) =>
             emit(PokedexFetchListByNameState(pokemonEntity: pokemons)));

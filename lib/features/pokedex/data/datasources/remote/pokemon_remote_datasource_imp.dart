@@ -24,9 +24,9 @@ class PokemonRemoteDataSourceImp implements PokemonRemoteDataSource {
           options: buildCacheOptions(const Duration(days: 7)));
       if (response.statusCode == 200) {
         List<PokemonModel> result = [];
-        var result3 = response.data["results"];
-        for (var i = 0; i < result3.length; i++) {
-          var test = await getPokemonByName(result3[i]["name"]);
+        var results = response.data["results"];
+        for (var i = 0; i < results.length; i++) {
+          var test = await getPokemonByName(results[i]["name"]);
           result.add(test);
         }
 
@@ -68,9 +68,6 @@ class PokemonRemoteDataSourceImp implements PokemonRemoteDataSource {
       if (response.statusCode == 200) {
         List<PokemonTypeModel> result = [];
         List map = response.data["results"];
-        // map.forEach((element) {
-        //   result.add(PokemonTypeModel.fromJson(element));
-        // });
 
         for (var element in map) {
           result.add(PokemonTypeModel.fromJson(element));
@@ -97,10 +94,9 @@ class PokemonRemoteDataSourceImp implements PokemonRemoteDataSource {
         final map = response.data["pokemon"];
 
         List<PokemonModel> result = [];
-        // var result3 = (map["pokemon"] as List);
         for (var i = 0; i < map.length; i++) {
-          var test = await getPokemonByName(map[i]["pokemon"]["name"]);
-          result.add(test);
+          var pokemon = await getPokemonByName(map[i]["pokemon"]["name"]);
+          result.add(pokemon);
         }
 
         return result;

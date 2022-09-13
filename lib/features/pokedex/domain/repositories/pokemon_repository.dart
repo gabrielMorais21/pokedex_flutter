@@ -8,6 +8,6 @@ abstract class PokemonRepository {
   Future<Either<Failure, PokemonEntity>> getPokemonByName(
       {required String name});
   Future<Either<Failure, List<PokemonEntity>>> getAllPokemonsByType(
-      {required String name});
+      {required String type});
   Future<Either<Failure, List<PokemonTypeEntity>>> getAllTypes();
 }

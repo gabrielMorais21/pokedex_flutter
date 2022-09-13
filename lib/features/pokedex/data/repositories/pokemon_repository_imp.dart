@@ -1,4 +1,3 @@
-import 'package:pokedex_flutter/core/platform/platform.dart';
 import 'package:pokedex_flutter/features/pokedex/data/datasources/remote/remote.dart';
 import 'package:pokedex_flutter/features/pokedex/data/models/models.dart';
 import 'package:pokedex_flutter/features/pokedex/domain/entities/entities.dart';
@@ -8,73 +7,55 @@ import 'package:pokedex_flutter/features/pokedex/domain/repositories/repositorie
 
 class PokemonRepositoryImpl implements PokemonRepository {
   final PokemonRemoteDataSource pokemonRemoteDataSource;
-  final NetworkInfo networkInfo;
 
   PokemonRepositoryImpl({
     required this.pokemonRemoteDataSource,
-    required this.networkInfo,
   });
 
   @override
   Future<Either<Failure, List<PokemonEntity>>> getAllPokemons(
       {required int offset}) async {
-    var isisConnected = await networkInfo.isConnected();
-    isisConnected = true;
-    if (isisConnected) {
-      try {
-        final List<PokemonModel> pokemons =
-            await pokemonRemoteDataSource.getAllPokemon(offset: offset);
+    try {
+      final List<PokemonModel> pokemons =
+          await pokemonRemoteDataSource.getAllPokemon(offset: offset);
 
-        return Right(pokemons);
-      } on ServerException {
-        return Left(ServerFailure());
-      }
+      return Right(pokemons);
+    } on ServerException {
+      return Left(ServerFailure());
     }
   }
 
   @override
   Future<Either<Failure, PokemonEntity>> getPokemonByName(
       {required String name}) async {
-    var isisConnected = await networkInfo.isConnected();
-    isisConnected = true;
-    if (isisConnected) {
-      try {
-        return Right(await pokemonRemoteDataSource.getPokemonByName(name));
-      } on ServerException {
-        return Left(ServerFailure());
-      }
+    try {
+      return Right(await pokemonRemoteDataSource.getPokemonByName(name));
+    } on ServerException {
+      return Left(ServerFailure());
     }
   }
 
   @override
   Future<Either<Failure, List<PokemonTypeEntity>>> getAllTypes() async {
-    var isisConnected = await networkInfo.isConnected();
-    isisConnected = true;
-    if (isisConnected) {
-      try {
-        final List<PokemonTypeModel> pokemons =
-            await pokemonRemoteDataSource.getAllTypes();
-        return Right(pokemons);
-      } on ServerException {
-        return Left(ServerFailure());
-      }
+    try {
+      final List<PokemonTypeModel> pokemons =
+          await pokemonRemoteDataSource.getAllTypes();
+      return Right(pokemons);
+    } on ServerException {
+      return Left(ServerFailure());
     }
   }
 
   @override
   Future<Either<Failure, List<PokemonEntity>>> getAllPokemonsByType(
-      {required String name}) async {
-    var isisConnected = await networkInfo.isConnected();
-    isisConnected = true;
-    if (isisConnected) {
-      try {
-        final List<PokemonModel> pokemons =
-            await pokemonRemoteDataSource.getAllPokemonByType(name: name);
-        // pokemonLocalDataSource.cachePokemons(pokemons);
-        return Right(pokemons);
-      } on ServerException {
-        return Left(ServerFailure());
-      }
+      {required String type}) async {
+    try {
+      final List<PokemonModel> pokemons =
+          await pokemonRemoteDataSource.getAllPokemonByType(name: type);
+
+      return Right(pokemons);
+    } on ServerException {
+      return Left(ServerFailure());
     }
   }
 }

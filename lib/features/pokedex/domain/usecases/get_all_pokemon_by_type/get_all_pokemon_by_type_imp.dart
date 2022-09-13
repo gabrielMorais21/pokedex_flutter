@@ -12,6 +12,6 @@ class GetAllPokemonByTypeImp implements GetAllPokemonByType {
   @override
   Future<Either<Failure, List<PokemonEntity>>> call(
       {required String type}) async {
-    return await repository.getAllPokemonsByType(name: type);
+    return await repository.getAllPokemonsByType(type: type);
   }
 }

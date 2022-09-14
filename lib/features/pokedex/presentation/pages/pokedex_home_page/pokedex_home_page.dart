@@ -35,13 +35,20 @@ class _HomePageState extends State<HomePage> {
                 ),
                 child: TextField(
                   onChanged: (String value) {
-                    if (value.isNotEmpty) {
-                      _debouncer.run(() => context
-                          .read<PokedexBloc>()
-                          .add(PokedexFetchListByName(name: value)));
-                    } else {
-                      context.read<PokedexBloc>().add(PokedexFetchList());
-                    }
+                    _debouncer.run(() => {
+                          if (value.isNotEmpty)
+                            {
+                              context
+                                  .read<PokedexBloc>()
+                                  .add(PokedexFetchListByName(name: value))
+                            }
+                          else
+                            {
+                              context
+                                  .read<PokedexBloc>()
+                                  .add(PokedexFetchList())
+                            }
+                        });
                   },
                   decoration: const InputDecoration(
                     border: InputBorder.none,
